@@ -1,5 +1,5 @@
 # Package Manger:
-bun
+- used: bun (first 1min 22sec)
 
 ### Uploadthing
 
