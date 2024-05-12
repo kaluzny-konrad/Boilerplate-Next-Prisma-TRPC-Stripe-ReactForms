@@ -10,7 +10,7 @@ import { trpc } from "@/server/client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import UploadImageZone from "./UploadImageZone";
+import UploadPhotoZone from "./UploadPhotoZone";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
@@ -89,7 +89,7 @@ export default function ProductCreateForm() {
             />
           </div>
         ) : (
-          <UploadImageZone handleImageUploaded={handlePhotoChanged} />
+          <UploadPhotoZone handlePhotoUploaded={handlePhotoChanged} />
         )}
         <div className="hidden">
           <Label htmlFor="photoId">Main image</Label>
