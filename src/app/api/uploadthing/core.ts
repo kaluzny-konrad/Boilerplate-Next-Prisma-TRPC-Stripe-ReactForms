@@ -13,7 +13,7 @@ const middleware = async () => {
   return { userId: user.id };
 };
 
-const onImageUploadComplete = async ({
+const onPhotoUploadComplete = async ({
   metadata,
   file,
 }: {
@@ -25,23 +25,23 @@ const onImageUploadComplete = async ({
   };
 }) => {
   try {
-    const uploadedFile = await db.image.create({
+    const uploadedFile = await db.photo.create({
       data: {
         key: file.key,
         url: file.url,
       },
     });
 
-    return { fileId: uploadedFile.id };
+    return { photo: uploadedFile };
   } catch (error) {
     console.error(error);
   }
 };
 
 export const ourFileRouter = {
-  imageUploader: f({ image: { maxFileSize: "16MB" } })
+  photoUploader: f({ image: { maxFileSize: "16MB" } })
     .middleware(middleware)
-    .onUploadComplete(onImageUploadComplete),
+    .onUploadComplete(onPhotoUploadComplete),
 } satisfies FileRouter;
 
 export type OurFileRouter = typeof ourFileRouter;

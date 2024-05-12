@@ -13,7 +13,7 @@ export const ProductCreateValidator = z.object({
     .refine((val) => parseInt(val, 10) > 0, {
       message: "Price must be greater than 0",
     }),
-  imageId: z.string().optional(),
+  photoId: z.string().optional(),
 });
 
 export const ProductEditValidator = z.object({
@@ -30,7 +30,7 @@ export const ProductEditValidator = z.object({
     .refine((val) => parseInt(val, 10) > 0, {
       message: "Price must be greater than 0",
     }),
-  imageId: z.string().optional(),
+  photoId: z.string().optional(),
 });
 
 export type ProductCreateRequest = z.infer<typeof ProductCreateValidator>;

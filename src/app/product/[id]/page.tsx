@@ -8,7 +8,7 @@ type Props = {
   };
 };
 
-export default function page({ params }: Props) {
+export default function ProductIdPage({ params }: Props) {
   const { id } = params;
 
   if (!id) {

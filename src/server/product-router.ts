@@ -3,13 +3,25 @@ import { TRPCError } from "@trpc/server";
 import { db } from "@/db";
 import { stripe } from "../lib/stripe";
 import { Prisma } from "@prisma/client";
-import { ProductCreateValidator, ProductEditValidator } from "@/lib/validators/product";
+import {
+  ProductCreateValidator,
+  ProductEditValidator,
+} from "@/lib/validators/product";
 
 export const productRouter = router({
+  getProducts: publicProcedure.query(async () => {
+    const products = await db.product.findMany({
+      include: {
+        Photo: true,
+      },
+    });
+    return products;
+  }),
+
   createProduct: privateProcedure
     .input(ProductCreateValidator)
     .mutation(async ({ input, ctx }) => {
-      const { name } = input;
+      const { name, photoId } = input;
       const { user } = ctx;
 
       const price = new Prisma.Decimal(input.price);
@@ -29,6 +41,7 @@ export const productRouter = router({
           price,
           priceId: stripeProduct.default_price as string,
           stripeProductId: stripeProduct.id,
+          photoId,
         },
       });
 

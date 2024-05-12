@@ -7,6 +7,7 @@ import PaymentStatus from "./PaymentStatus";
 import { Product, OrderStatus } from "@prisma/client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 type Props = {
   orderId: string;
@@ -29,21 +30,6 @@ export default function OrderInfo({ orderId, userEmail }: Props) {
     console.error(error);
   }
 
-  useEffect(() => {
-    if (order) {
-      const products: Product[] = order.Products.map((product) => {
-        return {
-          ...product,
-          price: product.price,
-        };
-      });
-
-      setProducts(products);
-    }
-  }, [order]);
-
-  const orderTotal = getPriceSum(products.map((product) => product.price));
-
   return (
     <div>
       {isLoading ? (
@@ -52,11 +38,16 @@ export default function OrderInfo({ orderId, userEmail }: Props) {
         <>
           <p>{order.id}</p>
           <ul>
-            {products.map((product) => (
+            {order.Products.map((product) => (
               <li key={product.id}>{product.name}</li>
             ))}
           </ul>
-          <p>Total: {formatPrice(orderTotal)}</p>
+          <p>
+            Total:{" "}
+            {formatPrice(
+              getPriceSum(order.Products.map((product) => product.price))
+            )}
+          </p>
           <PaymentStatus
             isPaid={order.status === OrderStatus.PAID}
             orderEmail={userEmail || ""}
@@ -65,8 +56,14 @@ export default function OrderInfo({ orderId, userEmail }: Props) {
 
           <p className="text-lg mt-5 font-bold">Products in order:</p>
           <ul>
-            {products.map((product) => (
+            {order.Products.map((product) => (
               <Link key={product.id} href={`/products/${product.id}`}>
+                <Image
+                  src={product.Photo?.url || ""}
+                  alt={product.name}
+                  width={100}
+                  height={100}
+                />
                 {product.name}
               </Link>
             ))}

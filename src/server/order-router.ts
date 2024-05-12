@@ -124,7 +124,11 @@ export const orderRouter = router({
           userId: user.id,
         },
         include: {
-          Products: true,
+          Products: {
+            include: {
+              Photo: true,
+            },
+          },
         },
       });
 

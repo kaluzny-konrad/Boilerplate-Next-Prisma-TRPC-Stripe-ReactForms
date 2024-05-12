@@ -1,6 +1,6 @@
 import CreateProductForm from "@/components/ProductCreateForm";
 
-export default function NewProductPage() {
+export default function ProductCreatePage() {
   return (
     <div>
         <CreateProductForm />

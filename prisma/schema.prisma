@@ -52,7 +52,8 @@ model User {
   emailVerified DateTime?
   username      String?   @unique
   image         String?
-  role          Role?
+
+  role Role?
 
   Accounts Account[]
   Sessions Session[]
@@ -95,13 +96,18 @@ model Product {
   priceId         String
   stripeProductId String
 
-  imageId String?
+  Photo   Photo?  @relation(fields: [photoId], references: [id])
+  photoId String?
 
   Orders Order[]
+
+  @@index([photoId])
 }
 
-model Image {
+model Photo {
   id  String @id @default(cuid())
   key String
   url String
+
+  Product Product[]
 }

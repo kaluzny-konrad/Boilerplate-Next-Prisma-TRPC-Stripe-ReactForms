@@ -7,7 +7,16 @@ type Props = {};
 export default function NavbarLinks({}: Props) {
   return (
     <>
-      <Link href={"/product/create"} className={buttonVariants({ variant: "ghost" })}>
+      <Link
+        href={"/product"}
+        className={buttonVariants({ variant: "ghost" })}
+      >
+        Products
+      </Link>
+      <Link
+        href={"/product/create"}
+        className={buttonVariants({ variant: "ghost" })}
+      >
         Create Product
       </Link>
     </>
