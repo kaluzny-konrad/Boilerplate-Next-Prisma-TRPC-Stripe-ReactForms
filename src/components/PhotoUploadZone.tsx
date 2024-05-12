@@ -10,7 +10,7 @@ type Props = {
   onBeforeUploadBegin: () => void;
 };
 
-export default function UploadPhotoZone({
+export default function PhotoUploadZone({
   onClientUploadComplete,
   onBeforeUploadBegin,
 }: Props) {

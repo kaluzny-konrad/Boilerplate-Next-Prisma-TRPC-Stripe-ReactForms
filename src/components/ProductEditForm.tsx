@@ -10,7 +10,7 @@ import { trpc } from "@/server/client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import UploadPhotoZone from "./UploadPhotoZone";
+import PhotoUploadZone from "./PhotoUploadZone";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
@@ -125,7 +125,7 @@ export default function ProductEditForm({ productId }: Props) {
             />
           </div>
         ) : (
-          <UploadPhotoZone
+          <PhotoUploadZone
             onClientUploadComplete={onClientUploadComplete}
             onBeforeUploadBegin={onBeforeUploadBegin}
           />

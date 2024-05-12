@@ -10,7 +10,7 @@ type Props = {
   isPaid: boolean;
 };
 
-export default function PaymentStatus({ orderEmail, orderId, isPaid }: Props) {
+export default function OrderPaymentStatus({ orderEmail, orderId, isPaid }: Props) {
   const { data } = trpc.order.pollOrderStatus.useQuery(
     { orderId },
     {

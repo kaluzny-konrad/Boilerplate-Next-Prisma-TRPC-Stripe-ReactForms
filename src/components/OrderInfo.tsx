@@ -1,9 +1,9 @@
 "use client";
 
-import { formatPrice, getDecimalPrice, getPriceSum } from "@/lib/utils";
+import { formatPrice, getPriceSum } from "@/lib/utils";
 import { trpc } from "@/server/client";
 import { toast } from "sonner";
-import PaymentStatus from "./PaymentStatus";
+import OrderPaymentStatus from "./OrderPaymentStatus";
 import { Product, OrderStatus } from "@prisma/client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -15,8 +15,6 @@ type Props = {
 };
 
 export default function OrderInfo({ orderId, userEmail }: Props) {
-  const [products, setProducts] = useState<Product[]>([]);
-
   const {
     data: order,
     error,
@@ -47,7 +45,7 @@ export default function OrderInfo({ orderId, userEmail }: Props) {
               getPriceSum(order.Products.map((product) => product.price))
             )}
           </p>
-          <PaymentStatus
+          <OrderPaymentStatus
             isPaid={order.status === OrderStatus.PAID}
             orderEmail={userEmail || ""}
             orderId={order.id}
