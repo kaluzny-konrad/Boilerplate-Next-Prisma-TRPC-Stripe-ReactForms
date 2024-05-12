@@ -1,0 +1,107 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  expires      DateTime
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  username      String?   @unique
+  image         String?
+  role          Role?
+
+  Accounts Account[]
+  Sessions Session[]
+
+  Order Order[]
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model Order {
+  id        String      @id @default(cuid())
+  total     Decimal     @db.Decimal(12, 2)
+  currency  String
+  status    OrderStatus
+  createdAt DateTime    @default(now())
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  Products Product[]
+
+  @@index([userId])
+}
+
+enum OrderStatus {
+  CREATED
+  PAID
+  CANCELLED
+  REFUNDED
+}
+
+model Product {
+  id    String  @id @default(cuid())
+  name  String
+  price Decimal @db.Decimal(12, 2)
+
+  priceId         String
+  stripeProductId String
+
+  imageId String?
+
+  Orders Order[]
+}
+
+model Image {
+  id  String @id @default(cuid())
+  key String
+  url String
+}

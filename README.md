@@ -1,36 +1,29 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+### Uploadthing
 
-## Getting Started
+1. <https://uploadthing.com/>
+   then .env
 
-First, run the development server:
+### NextAuth.js:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. Google Cloud Console secrets to .env:
+   <https://console.cloud.google.com/>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- new project
+- oauth client id:
+  <https://console.cloud.google.com/apis/credentials/oauthclient>
+- Web Application
+- Javascript origin: <http://localhost:3000> (for local development)
+- Redirect URI: <http://localhost:3000/api/auth/callback/google>
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+effect: secret to .env.local
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Stripe:
 
-## Learn More
+1. Create account and secret key:
+<https://dashboard.stripe.com/>
 
-To learn more about Next.js, take a look at the following resources:
+2. Create webhook for `checkout.session.completed`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. Test webhook with localtunnel.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+effect: secret and webhook secret to .env.local
