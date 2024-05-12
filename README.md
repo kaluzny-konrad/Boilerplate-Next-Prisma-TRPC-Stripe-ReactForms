@@ -1,3 +1,6 @@
+# Package Manger:
+bun
+
 ### Uploadthing
 
 1. <https://uploadthing.com/>
