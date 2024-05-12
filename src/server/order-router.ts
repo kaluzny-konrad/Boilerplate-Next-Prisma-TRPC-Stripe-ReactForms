@@ -56,7 +56,7 @@ export const orderRouter = router({
       });
 
       try {
-        const billingUrl = absoluteUrl(`/orders/${order.id}`);
+        const billingUrl = absoluteUrl(`/order/${order.id}`);
         const stripeSession = await stripe.checkout.sessions.create({
           success_url: billingUrl,
           cancel_url: billingUrl,
