@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 
 type Props = {
   params: {
-    id: string;
+    id: string; // remember: same name like [id] folder
   };
 };
 

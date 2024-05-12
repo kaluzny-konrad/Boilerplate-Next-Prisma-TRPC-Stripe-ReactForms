@@ -3,18 +3,18 @@ import { getAuthSession } from "@/lib/auth";
 
 type Props = {
   params: {
-    orderId: string;
+    id: string; // remember: same name like [id] folder
   };
 };
 
 export default async function OrderPage({ params }: Props) {
-  const { orderId } = params;
+  const { id } = params;
   const session = await getAuthSession();
 
   return (
     <div>
       <h1>Order</h1>
-      <OrderInfo orderId={orderId} userEmail={session?.user?.email} />
+      <OrderInfo orderId={id} userEmail={session?.user?.email} />
     </div>
   );
 }
