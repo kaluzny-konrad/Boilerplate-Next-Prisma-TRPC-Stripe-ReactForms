@@ -12,7 +12,7 @@ export default function ProductRow({ product, photo }: Props) {
   return (
     <Link
       href={`/product/${product.id}`}
-      className="flex rounded-lg gap-8 items-center"
+      className="flex flex-col rounded-lg gap-8 items-center"
     >
       {photo ? (
         <Image
@@ -21,6 +21,7 @@ export default function ProductRow({ product, photo }: Props) {
           width={600}
           height={400}
           priority
+          className="rounded-xl"
         />
       ) : (
         <div className="h-24 w-24 bg-gray-200 rounded-lg flex items-center justify-center">

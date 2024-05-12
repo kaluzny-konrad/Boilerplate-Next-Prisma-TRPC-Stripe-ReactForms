@@ -28,7 +28,7 @@ export default function ProductCheckoutButton({
   }
 
   return (
-    <Button onClick={handleProductCheckout} variant={"destructive"}>
+    <Button onClick={handleProductCheckout}>
       Buy
     </Button>
   );

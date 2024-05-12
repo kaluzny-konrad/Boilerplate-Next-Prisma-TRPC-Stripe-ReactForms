@@ -7,6 +7,7 @@ import {
   ProductCreateValidator,
   ProductEditValidator,
 } from "@/lib/validators/product";
+import { z } from "zod";
 
 export const productRouter = router({
   getProducts: publicProcedure.query(async () => {
@@ -17,6 +18,34 @@ export const productRouter = router({
     });
     return products;
   }),
+
+  getProduct: publicProcedure
+    .input(
+      z.object({
+        productId: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const { productId } = input;
+
+      const product = await db.product.findUnique({
+        where: {
+          id: productId,
+        },
+        include: {
+          Photo: true,
+        },
+      });
+
+      if (!product) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "product not found",
+        });
+      }
+
+      return product;
+    }),
 
   createProduct: privateProcedure
     .input(ProductCreateValidator)
@@ -30,7 +59,7 @@ export const productRouter = router({
       const stripeProduct = await stripe.products.create({
         name: name,
         default_price_data: {
-          currency: "PLN",
+          currency: process.env.DEFAULT_CURRENCY ?? "PLN",
           unit_amount: prismaPrice,
         },
       });
@@ -51,7 +80,7 @@ export const productRouter = router({
   editProduct: privateProcedure
     .input(ProductEditValidator)
     .mutation(async ({ input, ctx }) => {
-      const { name, productId } = input;
+      const { name, productId, photoId } = input;
       const { user } = ctx;
 
       const newPrice = new Prisma.Decimal(input.price);
@@ -74,14 +103,16 @@ export const productRouter = router({
         product: product.stripeProductId,
       });
 
-      let defaultPrice = previousStripePrices.data.find(
+      const defaultCurrency = process.env.DEFAULT_CURRENCY ?? "PLN";
+      let existedPriceDefinition = previousStripePrices.data.find(
         (price) =>
-          price.unit_amount === newPrismaPrice && price.currency === "pln"
+          price.unit_amount === newPrismaPrice &&
+          price.currency === defaultCurrency.toLowerCase()
       );
 
-      if (!defaultPrice) {
-        defaultPrice = await stripe.prices.create({
-          currency: "PLN",
+      if (!existedPriceDefinition) {
+        existedPriceDefinition = await stripe.prices.create({
+          currency: defaultCurrency,
           unit_amount: newPrismaPrice,
           product: product.stripeProductId,
         });
@@ -91,7 +122,7 @@ export const productRouter = router({
         product.stripeProductId,
         {
           name: name,
-          default_price: defaultPrice.id,
+          default_price: existedPriceDefinition.id,
         }
       );
 
@@ -104,6 +135,7 @@ export const productRouter = router({
           price: newPrice,
           priceId: stripeProduct.default_price as string,
           stripeProductId: stripeProduct.id,
+          photoId,
         },
       });
 

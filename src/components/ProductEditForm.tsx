@@ -3,8 +3,8 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  ProductCreateRequest,
-  ProductCreateValidator,
+  ProductEditRequest,
+  ProductEditValidator,
 } from "@/lib/validators/product";
 import { trpc } from "@/server/client";
 import { useRouter } from "next/navigation";
@@ -18,18 +18,28 @@ import Image from "next/image";
 import DeletePhotoButton from "./PhotoDeleteButton";
 import { Photo } from "@prisma/client";
 
-export default function ProductCreateForm() {
+type Props = {
+  productId: string;
+};
+
+export default function ProductEditForm({ productId }: Props) {
   const router = useRouter();
   const [photo, setPhoto] = useState<Photo | undefined>(undefined);
   const [isPhotoUploading, setIsPhotoUploading] = useState(false);
+
+  const {
+    data: productPreviousData,
+    isLoading: databaseLoading,
+    error: databaseError,
+  } = trpc.product.getProduct.useQuery({ productId });
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
-  } = useForm<ProductCreateRequest>({
-    resolver: zodResolver(ProductCreateValidator),
+  } = useForm<ProductEditRequest>({
+    resolver: zodResolver(ProductEditValidator),
     defaultValues: {
       name: "",
       price: "0",
@@ -45,19 +55,39 @@ export default function ProductCreateForm() {
     }
   }, [errors]);
 
-  async function onSubmit(data: ProductCreateRequest) {
-    createProduct(data);
+  async function onSubmit(data: ProductEditRequest) {
+    editProduct(data);
   }
 
-  const { mutate: createProduct } = trpc.product.createProduct.useMutation({
+  const { mutate: editProduct } = trpc.product.editProduct.useMutation({
     onSuccess: (res) => {
       router.push(`/product/${res.id}`);
+      router.refresh();
     },
     onError: (err) => {
       toast.error(`Something went wrong.`);
     },
   });
-  
+
+  useEffect(() => {
+    if (productPreviousData) {
+      setValue("name", productPreviousData.name);
+      setValue("price", productPreviousData.price.toString());
+      setValue("photoId", productPreviousData.Photo?.id);
+      setValue("productId", productPreviousData.id);
+      setPhoto(productPreviousData.Photo ?? undefined);
+    }
+  }, [productPreviousData]);
+
+  if (databaseLoading) {
+    return false;
+  }
+
+  if (databaseError) {
+    toast.error(`Something went wrong: ${databaseError?.message}`);
+    return false;
+  }
+
   function handlePhotoDeleted() {
     setPhoto(undefined);
     setValue("photoId", undefined);
@@ -75,7 +105,7 @@ export default function ProductCreateForm() {
 
   return (
     <div>
-      <form id="create-product" onSubmit={handleSubmit(onSubmit)}>
+      <form id="edit-product" onSubmit={handleSubmit(onSubmit)}>
         <div>
           <Label htmlFor="name">Product name</Label>
           <Input type="text" id="name" {...register("name")} />
@@ -108,7 +138,7 @@ export default function ProductCreateForm() {
               variant={"default"}
               disabled={isPhotoUploading}
             >
-              Create product
+              Save changes
             </Button>
           </div>
 

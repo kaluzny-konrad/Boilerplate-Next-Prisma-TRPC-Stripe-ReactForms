@@ -21,14 +21,16 @@ export function formatPrice(
     notation?: Intl.NumberFormatOptions["notation"];
   } = {}
 ) {
-  const { currency = "PLN", notation = "compact" } = options;
+  const defaultCurrency = process.env.DEFAULT_CURRENCY ?? "PLN";
+  const { currency = defaultCurrency, notation = "compact" } = options;
 
   const numericPrice =
     typeof price === "string"
       ? new Prisma.Decimal(price).toNumber()
       : price.toNumber();
 
-  return new Intl.NumberFormat("pl-PL", {
+  const defaultNumberLocales = process.env.DEFAULT_NUMBER_LOCALES ?? "pl-PL";
+  return new Intl.NumberFormat(defaultNumberLocales, {
     style: "currency",
     currency,
     notation,
@@ -141,9 +143,7 @@ export function constructMetadata({
       creator: "@twitterAccount",
     },
     icons,
-    metadataBase: new URL(
-      "http://localhost:3000/"
-    ),
+    metadataBase: new URL("http://localhost:3000/"),
     ...(noIndex && {
       robots: {
         index: false,

@@ -32,9 +32,10 @@ const onPhotoUploadComplete = async ({
       },
     });
 
-    return { photo: uploadedFile };
+    return { uploadedFile };
   } catch (error) {
     console.error(error);
+    return undefined;
   }
 };
 

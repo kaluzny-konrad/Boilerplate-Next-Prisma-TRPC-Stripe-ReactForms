@@ -45,12 +45,12 @@ export const orderRouter = router({
         data: {
           userId: user.id,
           Products: {
-            connect: productIds.map((id) => ({
-              id,
-            })),
+        connect: productIds.map((id) => ({
+          id,
+        })),
           },
           total: getPriceSum(filteredProducts.map((prod) => prod.price)),
-          currency: "PLN",
+          currency: process.env.DEFAULT_CURRENCY ?? "PLN",
           status: OrderStatus.CREATED,
         },
       });
