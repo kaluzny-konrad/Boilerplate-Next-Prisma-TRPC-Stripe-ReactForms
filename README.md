@@ -2,7 +2,7 @@
 - used: bun (first 1min 22sec, then 50sec)
 - yarn (first 2min, then ?)
 - pnpm (first 1min 30sec, then 1min 4sec)
-- npm (downloading never finished)
+- npm (downloading never finished) 
 
 ### Uploadthing
 
