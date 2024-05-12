@@ -43,7 +43,6 @@ export default function ProductCreateForm() {
     }, [errors]);
   
     async function onSubmit(data: ProductCreateRequest) {
-      console.log(data);
       createProduct(data);
     }
   

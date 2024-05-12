@@ -1,20 +1,25 @@
 import ProductCheckoutButton from "@/components/ProductCheckoutButton";
 import ProductInfo from "@/components/ProductInfo";
+import { notFound } from "next/navigation";
 
 type Props = {
   params: {
-    productId: string;
+    id: string;
   };
 };
 
 export default function page({ params }: Props) {
-  const { productId } = params;
+  const { id } = params;
+
+  if (!id) {
+    return notFound();
+  }
 
   return (
     <div className="p-4 bg-white rounded-xl min-h-96">
       <h2 className="mb-4 font-bold text-slate-600">Product info</h2>
-      <ProductInfo productId={productId} />
-      <ProductCheckoutButton productId={productId} />
+      <ProductInfo productId={id} />
+      <ProductCheckoutButton productId={id} />
     </div>
   );
 }

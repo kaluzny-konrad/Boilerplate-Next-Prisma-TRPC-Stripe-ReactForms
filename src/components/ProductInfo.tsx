@@ -6,6 +6,10 @@ type Props = {
 };
 
 export default async function ProductInfo({ productId }: Props) {
+  if (!productId) {
+    return false;
+  }
+
   const product = await db.product.findUnique({
     where: {
       id: productId,
