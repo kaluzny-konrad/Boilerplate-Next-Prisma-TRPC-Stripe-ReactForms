@@ -57,8 +57,6 @@ export const productRouter = router({
       const newPrice = new Prisma.Decimal(input.price);
       const newPrismaPrice = parseFloat(input.price.replace(",", ".")) * 100;
 
-      console.log("price", newPrice);
-
       const product = await db.product.findUnique({
         where: {
           id: productId,

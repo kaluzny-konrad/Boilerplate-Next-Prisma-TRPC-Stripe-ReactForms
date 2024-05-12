@@ -27,7 +27,6 @@ export default function OrderInfo({ orderId, userEmail }: Props) {
 
   if (error) {
     toast.error("Error loading order");
-    console.error(error);
   }
 
   return (
