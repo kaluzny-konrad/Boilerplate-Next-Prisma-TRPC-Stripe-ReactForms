@@ -1,3 +1,9 @@
+# ToDo:
+
+1. Add OpenAI API
+2. Add Seeding db
+
+
 # Package Manger:
 - used: bun (first 1min 22sec, then 50sec)
 other:
