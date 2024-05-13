@@ -43,3 +43,6 @@ effect: secret to .env.local
 
 effect: secret and webhook secret to .env.local
 Remember: to add new created webhook secret (not from local tunnel)
+
+
+## Seed Database

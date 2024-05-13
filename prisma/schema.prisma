@@ -97,7 +97,7 @@ model Product {
   stripeProductId String
 
   Photo   Photo?  @relation(fields: [photoId], references: [id])
-  photoId String?
+  photoId String? @unique
 
   Orders Order[]
 
@@ -109,5 +109,5 @@ model Photo {
   key String
   url String
 
-  Product Product[]
+  Product Product?
 }
