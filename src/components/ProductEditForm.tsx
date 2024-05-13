@@ -43,7 +43,6 @@ export default function ProductEditForm({ productId }: Props) {
     defaultValues: {
       name: "",
       price: "0",
-      photoId: undefined,
     },
   });
 
@@ -59,10 +58,20 @@ export default function ProductEditForm({ productId }: Props) {
     editProduct(data);
   }
 
+  const { mutate: addPhoto } = trpc.photo.addPhotoToProduct.useMutation({
+    onSuccess: (res) => {},
+    onError: (err) => {
+      toast.error(`Something went wrong during photo save.`);
+    },
+  });
+
   const { mutate: editProduct } = trpc.product.editProduct.useMutation({
     onSuccess: (res) => {
+      if (photo?.id) {
+        addPhoto({ productId: res.id, photoId: photo.id });
+      }
+
       router.push(`/product/${res.id}`);
-      router.refresh();
     },
     onError: (err) => {
       toast.error(`Something went wrong.`);
@@ -73,9 +82,8 @@ export default function ProductEditForm({ productId }: Props) {
     if (productPreviousData) {
       setValue("name", productPreviousData.name);
       setValue("price", productPreviousData.price.toString());
-      setValue("photoId", productPreviousData.Photo?.id);
       setValue("productId", productPreviousData.id);
-      setPhoto(productPreviousData.Photo ?? undefined);
+      setPhoto(productPreviousData.Photos[0] ?? undefined);
     }
   }, [productPreviousData]);
 
@@ -90,7 +98,6 @@ export default function ProductEditForm({ productId }: Props) {
 
   function handlePhotoDeleted() {
     setPhoto(undefined);
-    setValue("photoId", undefined);
   }
 
   function onBeforeUploadBegin() {
@@ -99,7 +106,6 @@ export default function ProductEditForm({ productId }: Props) {
 
   function onClientUploadComplete(photo: Photo) {
     setPhoto(photo);
-    setValue("photoId", photo.id);
     setIsPhotoUploading(false);
   }
 
@@ -122,6 +128,8 @@ export default function ProductEditForm({ productId }: Props) {
               alt="Product image"
               width={600}
               height={400}
+              className="h-auto w-auto"
+              priority
             />
           </div>
         ) : (
@@ -150,11 +158,6 @@ export default function ProductEditForm({ productId }: Props) {
               />
             </div>
           )}
-        </div>
-
-        <div className="hidden">
-          <Label htmlFor="photoId">Main image</Label>
-          <Input type="text" id="photoId" {...register("photoId")} />
         </div>
       </form>
     </div>

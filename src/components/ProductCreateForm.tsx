@@ -33,7 +33,6 @@ export default function ProductCreateForm() {
     defaultValues: {
       name: "",
       price: "0",
-      photoId: undefined,
     },
   });
 
@@ -49,18 +48,28 @@ export default function ProductCreateForm() {
     createProduct(data);
   }
 
+  const { mutate: addPhoto } = trpc.photo.addPhotoToProduct.useMutation({
+    onSuccess: (res) => {},
+    onError: (err) => {
+      toast.error(`Something went wrong during photo save.`);
+    },
+  });
+
   const { mutate: createProduct } = trpc.product.createProduct.useMutation({
     onSuccess: (res) => {
+      if (photo?.id) {
+        addPhoto({ productId: res.id, photoId: photo.id });
+      }
+
       router.push(`/product/${res.id}`);
     },
     onError: (err) => {
-      toast.error(`Something went wrong.`);
+      toast.error(`Something went wrong during product save.`);
     },
   });
-  
+
   function handlePhotoDeleted() {
     setPhoto(undefined);
-    setValue("photoId", undefined);
   }
 
   function onBeforeUploadBegin() {
@@ -69,7 +78,6 @@ export default function ProductCreateForm() {
 
   function onClientUploadComplete(photo: Photo) {
     setPhoto(photo);
-    setValue("photoId", photo.id);
     setIsPhotoUploading(false);
   }
 
@@ -120,11 +128,6 @@ export default function ProductCreateForm() {
               />
             </div>
           )}
-        </div>
-
-        <div className="hidden">
-          <Label htmlFor="photoId">Main image</Label>
-          <Input type="text" id="photoId" {...register("photoId")} />
         </div>
       </form>
     </div>

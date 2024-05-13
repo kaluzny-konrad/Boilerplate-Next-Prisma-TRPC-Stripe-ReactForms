@@ -13,7 +13,7 @@ export const productRouter = router({
   getProducts: publicProcedure.query(async () => {
     const products = await db.product.findMany({
       include: {
-        Photo: true,
+        Photos: true,
       },
     });
     return products;
@@ -33,7 +33,7 @@ export const productRouter = router({
           id: productId,
         },
         include: {
-          Photo: true,
+          Photos: true,
         },
       });
 
@@ -50,7 +50,7 @@ export const productRouter = router({
   createProduct: privateProcedure
     .input(ProductCreateValidator)
     .mutation(async ({ input, ctx }) => {
-      const { name, photoId } = input;
+      const { name } = input;
       const { user } = ctx;
 
       const price = new Prisma.Decimal(input.price);
@@ -70,7 +70,6 @@ export const productRouter = router({
           price,
           priceId: stripeProduct.default_price as string,
           stripeProductId: stripeProduct.id,
-          photoId,
         },
       });
 
@@ -80,7 +79,7 @@ export const productRouter = router({
   editProduct: privateProcedure
     .input(ProductEditValidator)
     .mutation(async ({ input, ctx }) => {
-      const { name, productId, photoId } = input;
+      const { name, productId } = input;
       const { user } = ctx;
 
       const newPrice = new Prisma.Decimal(input.price);
@@ -135,7 +134,6 @@ export const productRouter = router({
           price: newPrice,
           priceId: stripeProduct.default_price as string,
           stripeProductId: stripeProduct.id,
-          photoId,
         },
       });
 

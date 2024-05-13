@@ -56,7 +56,7 @@ export default function OrderInfo({ orderId, userEmail }: Props) {
             {order.Products.map((product) => (
               <Link key={product.id} href={`/products/${product.id}`}>
                 <Image
-                  src={product.Photo?.url || ""}
+                  src={product.Photos[0]?.url || ""}
                   alt={product.name}
                   width={100}
                   height={100}

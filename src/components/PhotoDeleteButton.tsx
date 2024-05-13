@@ -26,7 +26,6 @@ export default function PhotoDeleteButton({ Photo, onPhotoDeleted }: Props) {
     e.preventDefault();
     deletePhoto({
       id: Photo.id,
-      key: Photo.key,
     });
   };
 

@@ -126,7 +126,7 @@ export const orderRouter = router({
         include: {
           Products: {
             include: {
-              Photo: true,
+              Photos: true,
             },
           },
         },

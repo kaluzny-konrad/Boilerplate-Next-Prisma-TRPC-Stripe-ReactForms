@@ -96,12 +96,8 @@ model Product {
   priceId         String
   stripeProductId String
 
-  Photo   Photo?  @relation(fields: [photoId], references: [id])
-  photoId String? @unique
-
+  Photos Photo[]
   Orders Order[]
-
-  @@index([photoId])
 }
 
 model Photo {
@@ -109,5 +105,7 @@ model Photo {
   key String
   url String
 
-  Product Product?
+  isMainPhoto Boolean @default(false)
+
+  Products Product[]
 }

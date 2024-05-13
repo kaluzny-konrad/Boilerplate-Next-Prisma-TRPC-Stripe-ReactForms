@@ -1,14 +1,39 @@
 import { privateProcedure, router } from "./trpc";
 import { TRPCError } from "@trpc/server";
 import { db } from "@/db";
-import { PhotoDeleteValidator } from "@/lib/validators/photo";
+import {
+  PhotoAddToProductValidator,
+  PhotoDeleteValidator,
+} from "@/lib/validators/photo";
 import { utapi } from "./uploadthing";
 
 export const photoRouter = router({
+  addPhotoToProduct: privateProcedure
+    .input(PhotoAddToProductValidator)
+    .mutation(async ({ input }) => {
+      const { productId, photoId } = input;
+
+      const photo = await db.photo.update({
+        where: {
+          id: photoId,
+        },
+        data: {
+          isMainPhoto: true,
+          Products: {
+            connect: {
+              id: productId,
+            },
+          },
+        },
+      });
+
+      return photo;
+    }),
+
   deletePhoto: privateProcedure
     .input(PhotoDeleteValidator)
     .mutation(async ({ input, ctx }) => {
-      const { id, key } = input;
+      const { id } = input;
       const { user } = ctx;
 
       const photo = await db.photo.findFirst({
@@ -24,7 +49,7 @@ export const photoRouter = router({
         });
       }
 
-      const isPhotoDeleted = await utapi.deleteFiles(key);
+      const isPhotoDeleted = await utapi.deleteFiles(photo.key);
 
       if (!isPhotoDeleted) {
         throw new TRPCError({
