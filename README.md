@@ -1,7 +1,7 @@
 # ToDo:
 
-1. Add OpenAI API
-2. Add Seeding db
+1. [ ] Add OpenAI API
+2. [X] Add Seeding db
 
 
 # Package Manger:

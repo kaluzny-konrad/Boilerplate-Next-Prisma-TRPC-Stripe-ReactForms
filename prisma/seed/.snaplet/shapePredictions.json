@@ -1,0 +1,314 @@
+[
+  {
+    "schemaName": "public",
+    "tableName": "Account",
+    "predictions": [
+      {
+        "input": "public account access_token",
+        "column": "access_token",
+        "shape": "TOKEN",
+        "confidence": 0.9799972772598267,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public account id",
+        "column": "id",
+        "shape": "UUID",
+        "confidence": 0.9855437278747559,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public account id_token",
+        "column": "id_token",
+        "shape": "TOKEN",
+        "confidence": 0.9772350192070007,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public account provider",
+        "column": "provider",
+        "shape": "INTERNET_DOMAIN_NAME",
+        "confidence": 0.8490062355995178,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public account provider_account_id",
+        "column": "providerAccountId",
+        "shape": "FINANCE_ACCOUNT",
+        "confidence": 0.7118757963180542,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public account refresh_token",
+        "column": "refresh_token",
+        "shape": "TOKEN",
+        "confidence": 0.9793550372123718,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public account scope",
+        "column": "scope",
+        "shape": "ROLE",
+        "confidence": 1,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public account session_state",
+        "column": "session_state",
+        "shape": "STATE",
+        "confidence": 0.9823795557022095,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public account token_type",
+        "column": "token_type",
+        "shape": "TOKEN",
+        "confidence": 0.9311937093734741,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public account type",
+        "column": "type",
+        "shape": "SUBSCRIPTION",
+        "confidence": 1,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public account user_id",
+        "column": "userId",
+        "shape": "UUID",
+        "confidence": 0.9864158034324646,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "Order",
+    "predictions": [
+      {
+        "input": "public order currency",
+        "column": "currency",
+        "shape": "FINANCE_CURRENCY_NAME",
+        "confidence": 0.9797673225402832,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public order id",
+        "column": "id",
+        "shape": "UUID",
+        "confidence": 0.9865091443061829,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public order user_id",
+        "column": "userId",
+        "shape": "UUID",
+        "confidence": 0.9865207672119141,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "Photo",
+    "predictions": [
+      {
+        "input": "public photo id",
+        "column": "id",
+        "shape": "UUID",
+        "confidence": 0.9983789920806885,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public photo key",
+        "column": "key",
+        "shape": "TOKEN",
+        "confidence": 0.5483436584472656,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public photo url",
+        "column": "url",
+        "shape": "IMAGE_URL",
+        "confidence": 0.9219947457313538,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "Product",
+    "predictions": [
+      {
+        "input": "public product id",
+        "column": "id",
+        "shape": "UUID",
+        "confidence": 0.9855737090110779,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public product name",
+        "column": "name",
+        "shape": "COMMERCE_PRODUCT_NAME",
+        "confidence": 0.9166077375411987,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public product price_id",
+        "column": "priceId",
+        "shape": "UUID",
+        "confidence": 0.9477769732475281,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public product stripe_product_id",
+        "column": "stripeProductId",
+        "shape": "UUID",
+        "confidence": 0.9966129660606384,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "Session",
+    "predictions": [
+      {
+        "input": "public session id",
+        "column": "id",
+        "shape": "UUID",
+        "confidence": 0.9865543842315674,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public session session_token",
+        "column": "sessionToken",
+        "shape": "TOKEN",
+        "confidence": 0.9798135161399841,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public session user_id",
+        "column": "userId",
+        "shape": "UUID",
+        "confidence": 0.9861370325088501,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "User",
+    "predictions": [
+      {
+        "input": "public user email",
+        "column": "email",
+        "shape": "EMAIL",
+        "confidence": 0.99404376745224,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public user id",
+        "column": "id",
+        "shape": "UUID",
+        "confidence": 0.9964122176170349,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public user image",
+        "column": "image",
+        "shape": "INTERNET_AVATAR",
+        "confidence": 0.9280387163162231,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public user name",
+        "column": "name",
+        "shape": "USERNAME",
+        "confidence": 0.9706624150276184,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public user username",
+        "column": "username",
+        "shape": "USERNAME",
+        "confidence": 0.9716823697090149,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "_OrderToProduct",
+    "predictions": [
+      {
+        "input": "public order_to_product a",
+        "column": "A",
+        "shape": "COMMERCE_PRODUCT",
+        "confidence": 0.9158214926719666,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public order_to_product b",
+        "column": "B",
+        "shape": "DATABASE_COLUMN",
+        "confidence": 0.8195555806159973,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "_PhotoToProduct",
+    "predictions": [
+      {
+        "input": "public photo_to_product a",
+        "column": "A",
+        "shape": "COMMERCE_PRODUCT",
+        "confidence": 0.9477218389511108,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public photo_to_product b",
+        "column": "B",
+        "shape": "DATABASE_COLUMN",
+        "confidence": 0.7945889830589294,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  }
+]
