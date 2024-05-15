@@ -85,7 +85,7 @@ export default function ProductEditForm({ productId }: Props) {
       setValue("productId", productPreviousData.id);
       setPhoto(productPreviousData.Photos[0] ?? undefined);
     }
-  }, [productPreviousData]);
+  }, [productPreviousData, setValue, setPhoto]);
 
   if (databaseLoading) {
     return false;

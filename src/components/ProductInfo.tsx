@@ -11,10 +11,6 @@ type Props = {
 };
 
 export default function ProductInfo({ productId }: Props) {
-  if (!productId) {
-    return false;
-  }
-
   const {
     data: product,
     isLoading,
@@ -24,14 +20,14 @@ export default function ProductInfo({ productId }: Props) {
 
   // try refech photo one time if was not loaded
   useEffect(() => {
-    if (product?.Photos && product.Photos.length === 0) {
+    if (!isLoading && product?.Photos && product.Photos.length === 0) {
       const timeoutId = setTimeout(() => {
         refetch();
       }, 2000);
 
       return () => clearTimeout(timeoutId);
     }
-  }, [refetch]);
+  }, [isLoading, product, refetch]);
 
   return (
     <div>
