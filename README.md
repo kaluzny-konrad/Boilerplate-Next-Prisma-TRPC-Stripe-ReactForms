@@ -52,3 +52,4 @@ Remember: to add new created webhook secret (not from local tunnel)
 
 
 ## Seed Database
+`npx tsx prisma/seed/seed.ts`
