@@ -58,6 +58,9 @@
     "typescript": "^5.4.5"
   },
   "trustedDependencies": [
-    "@snaplet/seed"
+    "@prisma/client",
+    "@prisma/engines",
+    "@snaplet/seed",
+    "prisma"
   ]
 }
