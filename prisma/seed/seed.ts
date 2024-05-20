@@ -3,7 +3,7 @@ import { createSeedClient } from "@snaplet/seed";
 
 const prisma = new PrismaClient();
 
-const main = async () => {
+const seed = async () => {
   try {
     const seed = await createSeedClient({
       models: {
@@ -101,4 +101,4 @@ const main = async () => {
   }
 };
 
-main();
+seed();
