@@ -19,6 +19,12 @@ export default function NavbarLinks({}: Props) {
       >
         Create Product
       </Link>
+      <Link
+        href={"/chat"}
+        className={buttonVariants({ variant: "ghost" })}
+      >
+        Chat OpenAI
+      </Link>
     </>
   );
 }
