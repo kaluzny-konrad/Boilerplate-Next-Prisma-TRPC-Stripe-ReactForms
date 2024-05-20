@@ -5,7 +5,6 @@ const prisma = new PrismaClient();
 
 const seed = async () => {
   try {
-    throw new Error("Seed is disabled for now");
     const seed = await createSeedClient({
       models: {
         photo: {
