@@ -4,13 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "postinstall": "prisma generate",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
-  },
-  "prisma": {
-    "seed": "npx tsx prisma/seed/seed.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
