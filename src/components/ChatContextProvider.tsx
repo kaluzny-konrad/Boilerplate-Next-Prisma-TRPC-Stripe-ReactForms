@@ -114,8 +114,15 @@ export const ChatContextProvider = ({ chatId, children }: Props) => {
       while (!done) {
         const { value, done: doneReading } = await reader.read();
         done = doneReading;
-        const chunkValue = decoder.decode(value);
-        accResponse += chunkValue;
+        if (value) {
+          const chunkValue = decoder.decode(value);
+          const combinedChunkValue = chunkValue
+            .split("\n")
+            .filter((line) => line.trim() !== "")
+            .map((line) => line.replace(/0:"/, "").replace(/"/, ""))
+            .join("");
+          accResponse += combinedChunkValue;
+        }
 
         // append to actual message
         utils.chat.getMessages.setInfiniteData(

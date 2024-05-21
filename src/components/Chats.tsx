@@ -11,7 +11,7 @@ export default function Chats({}: Props) {
   const { data: chats, isLoading } = trpc.chat.getChats.useQuery();
 
   return (
-    <div className="flex gap-8 m-4">
+    <div className="flex flex-col gap-8 m-4">
       {chats?.map((chat) => (
         <Link
           key={chat.id}

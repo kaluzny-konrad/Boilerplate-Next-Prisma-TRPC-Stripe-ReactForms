@@ -22,7 +22,7 @@ export default function ChatAddForm() {
   } = useForm<ChatCreateRequest>({
     resolver: zodResolver(ChatCreateValidator),
     defaultValues: {
-      name: "",
+      name: "New Chat",
     },
   });
 

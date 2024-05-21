@@ -80,7 +80,7 @@ export default function ChatMessages({ chatId }: Props) {
   }
 
   return (
-    <div>
+    <div className="mx-4">
       {combinedMessages.map((message, i) => {
         const isNextMessageSamePerson =
           combinedMessages[i - 1]?.isUserMessage === message.isUserMessage;

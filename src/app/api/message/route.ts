@@ -53,34 +53,33 @@ export const POST = async (req: NextRequest) => {
     content: message.text,
   }));
 
+  const userContent = `Answer the users question in markdown format. 
+            
+  \n----------------\n
+  
+  PREVIOUS CONVERSATION:
+  ${formattedPrevMessages.map((message) => {
+    if (message.role === "user") return `User: ${message.content}\n`;
+    return `Assistant: ${message.content}\n`;
+  })}
+  
+  \n----------------\n
+  
+  USER INPUT: ${message}`;
+
   const response = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
-    temperature: 0,
+    temperature: 0.5,
     stream: true,
     messages: [
       {
         role: "system",
         content:
-          "Use the following pieces of context (or previous conversaton if needed) to answer the users question in markdown format.",
+          "Answer the users question in markdown format.",
       },
       {
         role: "user",
-        content: `Use the following pieces of context (or previous conversaton if needed) to answer the users question in markdown format. \nIf you don't know the answer, just say that you don't know, don't try to make up an answer.
-            
-      \n----------------\n
-      
-      PREVIOUS CONVERSATION:
-      ${formattedPrevMessages.map((message) => {
-        if (message.role === "user") return `User: ${message.content}\n`;
-        return `Assistant: ${message.content}\n`;
-      })}
-      
-      \n----------------\n
-      
-      CONTEXT:
-      ${results.map((r) => r.pageContent).join("\n\n")}
-      
-      USER INPUT: ${message}`,
+        content: userContent,
       },
     ],
   });

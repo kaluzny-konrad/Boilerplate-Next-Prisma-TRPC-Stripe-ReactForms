@@ -12,6 +12,7 @@ type Props = {
 
 const ChatMessage = forwardRef<HTMLDivElement, Props>(
   ({ message, isNextMessageSamePerson }, ref) => {
+
     return (
       <div
         ref={ref}
@@ -70,7 +71,7 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(
                   "text-blue-300": message.isUserMessage,
                 })}
               >
-                {format(new Date(message.createdAt), "HH:mm")}
+                {format(message.createdAt, "HH:mm")}
               </div>
             ) : null}
           </div>
