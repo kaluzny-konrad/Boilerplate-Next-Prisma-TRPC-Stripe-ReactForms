@@ -2,10 +2,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import WrapperProviders from "@/components/Shared/WrapperProviders";
 import { cn, constructMetadata } from "@/lib/utils";
-import { Toaster } from "@/components/ui/sonner";
-import Navbar from "@/components/Shared/Navbar/Navbar";
-import Footer from "@/components/Footer";
-import WrapperMaxWidth from "@/components/Shared/WrapperMaxWidth";
 
 const inter = Inter({ subsets: ["latin"] });
 

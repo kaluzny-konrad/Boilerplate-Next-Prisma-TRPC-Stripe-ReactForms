@@ -1,7 +1,6 @@
 import ChatAddForm from "@/components/Chat/ChatAddForm";
 import ChatWrapper from "@/components/Chat/ChatWrapper";
 import Chats from "@/components/Chat/Chats";
-import { cn } from "@/lib/utils";
 
 type Props = {
   params: {
