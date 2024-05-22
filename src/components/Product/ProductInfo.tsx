@@ -1,6 +1,5 @@
 "use client";
 
-import { db } from "@/db";
 import { formatPrice } from "@/lib/utils";
 import { trpc } from "@/server/client";
 import Image from "next/image";

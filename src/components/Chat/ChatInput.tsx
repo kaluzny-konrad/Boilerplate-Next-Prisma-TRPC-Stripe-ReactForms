@@ -1,7 +1,7 @@
 import React from "react";
-import { Textarea } from "./ui/textarea";
 import { cn } from "@/lib/utils";
-import { Button } from "./ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
 import { SendIcon } from "lucide-react";
 import { ChatContext } from "./ChatContextProvider";
 

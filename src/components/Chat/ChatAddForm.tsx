@@ -6,9 +6,7 @@ import { trpc } from "@/server/client";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { toast } from "sonner";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-import { Label } from "./ui/label";
+import { Button } from "@/components/ui/button";
 import { ChatCreateRequest, ChatCreateValidator } from "@/lib/validators/chat";
 
 export default function ChatAddForm() {

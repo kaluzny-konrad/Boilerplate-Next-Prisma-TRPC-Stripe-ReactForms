@@ -1,5 +1,5 @@
-import ProductCheckoutButton from "@/components/ProductCheckoutButton";
-import ProductInfo from "@/components/ProductInfo";
+import ProductCheckoutButton from "@/components/Product/ProductCheckoutButton";
+import ProductInfo from "@/components/Product/ProductInfo";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";

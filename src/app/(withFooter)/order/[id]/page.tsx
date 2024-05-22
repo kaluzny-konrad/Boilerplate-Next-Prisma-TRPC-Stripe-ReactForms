@@ -1,4 +1,4 @@
-import OrderInfo from "@/components/OrderInfo";
+import OrderInfo from "@/components/Product/OrderInfo";
 import { getAuthSession } from "@/lib/auth";
 
 type Props = {

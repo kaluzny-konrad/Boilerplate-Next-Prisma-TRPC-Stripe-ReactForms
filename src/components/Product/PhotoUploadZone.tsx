@@ -1,9 +1,8 @@
 "use client";
 
-import { UploadButton, UploadDropzone } from "@/lib/uploadthing";
+import { UploadButton } from "@/lib/uploadthing";
 import { Photo } from "@prisma/client";
 import { toast } from "sonner";
-import { ClientUploadedFileData } from "uploadthing/types";
 
 type Props = {
   onClientUploadComplete: (photo: Photo) => void;

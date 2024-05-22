@@ -1,7 +1,7 @@
 "use client";
 
 import { trpc } from "@/server/client";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 

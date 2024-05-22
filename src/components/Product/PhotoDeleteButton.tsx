@@ -1,6 +1,6 @@
 import { trpc } from "@/server/client";
 import React from "react";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Photo } from "@prisma/client";
 import { Loader2Icon } from "lucide-react";

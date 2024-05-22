@@ -1,5 +1,5 @@
-import WrapperMaxWidth from "./WrapperMaxWidth";
-import NavbarUserOptions from "./NavbarUserOptions";
+import WrapperMaxWidth from "@/components/Shared/WrapperMaxWidth";
+import NavbarUserOptions from "@/components/Shared/Navbar/NavbarUserOptions";
 import NavbarLinks from "./NavbarLinks";
 import Link from "next/link";
 

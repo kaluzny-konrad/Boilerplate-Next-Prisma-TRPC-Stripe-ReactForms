@@ -6,7 +6,7 @@ import { trpc } from "@/server/client";
 import { INFINITE_QUERY_LIMIT } from "@/config/infinite-query";
 import { Loader2Icon, MessageSquareIcon } from "lucide-react";
 import { useIntersection } from "@mantine/hooks";
-import { Skeleton } from "./ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 import ChatMessage from "./ChatMessage";
 import { cn } from "@/lib/utils";
 

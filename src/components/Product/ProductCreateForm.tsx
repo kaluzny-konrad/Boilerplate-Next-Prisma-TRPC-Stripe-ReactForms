@@ -3,43 +3,33 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  ProductEditRequest,
-  ProductEditValidator,
+  ProductCreateRequest,
+  ProductCreateValidator,
 } from "@/lib/validators/product";
 import { trpc } from "@/server/client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import PhotoUploadZone from "./PhotoUploadZone";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-import { Label } from "./ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import DeletePhotoButton from "./PhotoDeleteButton";
 import { Photo } from "@prisma/client";
 
-type Props = {
-  productId: string;
-};
-
-export default function ProductEditForm({ productId }: Props) {
+export default function ProductCreateForm() {
   const router = useRouter();
   const [photo, setPhoto] = useState<Photo | undefined>(undefined);
   const [isPhotoUploading, setIsPhotoUploading] = useState(false);
-
-  const {
-    data: productPreviousData,
-    isLoading: databaseLoading,
-    error: databaseError,
-  } = trpc.product.getProduct.useQuery({ productId });
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
-  } = useForm<ProductEditRequest>({
-    resolver: zodResolver(ProductEditValidator),
+  } = useForm<ProductCreateRequest>({
+    resolver: zodResolver(ProductCreateValidator),
     defaultValues: {
       name: "",
       price: "0",
@@ -54,8 +44,8 @@ export default function ProductEditForm({ productId }: Props) {
     }
   }, [errors]);
 
-  async function onSubmit(data: ProductEditRequest) {
-    editProduct(data);
+  async function onSubmit(data: ProductCreateRequest) {
+    createProduct(data);
   }
 
   const { mutate: addPhoto } = trpc.photo.addPhotoToProduct.useMutation({
@@ -65,7 +55,7 @@ export default function ProductEditForm({ productId }: Props) {
     },
   });
 
-  const { mutate: editProduct } = trpc.product.editProduct.useMutation({
+  const { mutate: createProduct } = trpc.product.createProduct.useMutation({
     onSuccess: (res) => {
       if (photo?.id) {
         addPhoto({ productId: res.id, photoId: photo.id });
@@ -74,27 +64,9 @@ export default function ProductEditForm({ productId }: Props) {
       router.push(`/product/${res.id}`);
     },
     onError: (err) => {
-      toast.error(`Something went wrong.`);
+      toast.error(`Something went wrong during product save.`);
     },
   });
-
-  useEffect(() => {
-    if (productPreviousData) {
-      setValue("name", productPreviousData.name);
-      setValue("price", productPreviousData.price.toString());
-      setValue("productId", productPreviousData.id);
-      setPhoto(productPreviousData.Photos[0] ?? undefined);
-    }
-  }, [productPreviousData, setValue, setPhoto]);
-
-  if (databaseLoading) {
-    return false;
-  }
-
-  if (databaseError) {
-    toast.error(`Something went wrong: ${databaseError?.message}`);
-    return false;
-  }
 
   function handlePhotoDeleted() {
     setPhoto(undefined);
@@ -111,7 +83,7 @@ export default function ProductEditForm({ productId }: Props) {
 
   return (
     <div>
-      <form id="edit-product" onSubmit={handleSubmit(onSubmit)}>
+      <form id="create-product" onSubmit={handleSubmit(onSubmit)}>
         <div>
           <Label htmlFor="name">Product name</Label>
           <Input type="text" id="name" {...register("name")} />
@@ -128,8 +100,6 @@ export default function ProductEditForm({ productId }: Props) {
               alt="Product image"
               width={600}
               height={400}
-              className="h-auto w-auto"
-              priority
             />
           </div>
         ) : (
@@ -146,7 +116,7 @@ export default function ProductEditForm({ productId }: Props) {
               variant={"default"}
               disabled={isPhotoUploading}
             >
-              Save changes
+              Create product
             </Button>
           </div>
 

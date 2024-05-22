@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/Navbar";
-import WrapperMaxWidth from "@/components/WrapperMaxWidth";
-import Footer from "@/components/Footer";
+import Navbar from "@/components/Shared/Navbar/Navbar";
+import WrapperMaxWidth from "@/components/Shared/WrapperMaxWidth";
+import Footer from "@/components/Shared/Footer";
 import { Toaster } from "sonner";
 
 export const metadata: Metadata = {

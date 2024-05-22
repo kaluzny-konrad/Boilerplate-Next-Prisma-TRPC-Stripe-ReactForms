@@ -3,33 +3,43 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  ProductCreateRequest,
-  ProductCreateValidator,
+  ProductEditRequest,
+  ProductEditValidator,
 } from "@/lib/validators/product";
 import { trpc } from "@/server/client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import PhotoUploadZone from "./PhotoUploadZone";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-import { Label } from "./ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import DeletePhotoButton from "./PhotoDeleteButton";
 import { Photo } from "@prisma/client";
 
-export default function ProductCreateForm() {
+type Props = {
+  productId: string;
+};
+
+export default function ProductEditForm({ productId }: Props) {
   const router = useRouter();
   const [photo, setPhoto] = useState<Photo | undefined>(undefined);
   const [isPhotoUploading, setIsPhotoUploading] = useState(false);
+
+  const {
+    data: productPreviousData,
+    isLoading: databaseLoading,
+    error: databaseError,
+  } = trpc.product.getProduct.useQuery({ productId });
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
-  } = useForm<ProductCreateRequest>({
-    resolver: zodResolver(ProductCreateValidator),
+  } = useForm<ProductEditRequest>({
+    resolver: zodResolver(ProductEditValidator),
     defaultValues: {
       name: "",
       price: "0",
@@ -44,8 +54,8 @@ export default function ProductCreateForm() {
     }
   }, [errors]);
 
-  async function onSubmit(data: ProductCreateRequest) {
-    createProduct(data);
+  async function onSubmit(data: ProductEditRequest) {
+    editProduct(data);
   }
 
   const { mutate: addPhoto } = trpc.photo.addPhotoToProduct.useMutation({
@@ -55,7 +65,7 @@ export default function ProductCreateForm() {
     },
   });
 
-  const { mutate: createProduct } = trpc.product.createProduct.useMutation({
+  const { mutate: editProduct } = trpc.product.editProduct.useMutation({
     onSuccess: (res) => {
       if (photo?.id) {
         addPhoto({ productId: res.id, photoId: photo.id });
@@ -64,9 +74,27 @@ export default function ProductCreateForm() {
       router.push(`/product/${res.id}`);
     },
     onError: (err) => {
-      toast.error(`Something went wrong during product save.`);
+      toast.error(`Something went wrong.`);
     },
   });
+
+  useEffect(() => {
+    if (productPreviousData) {
+      setValue("name", productPreviousData.name);
+      setValue("price", productPreviousData.price.toString());
+      setValue("productId", productPreviousData.id);
+      setPhoto(productPreviousData.Photos[0] ?? undefined);
+    }
+  }, [productPreviousData, setValue, setPhoto]);
+
+  if (databaseLoading) {
+    return false;
+  }
+
+  if (databaseError) {
+    toast.error(`Something went wrong: ${databaseError?.message}`);
+    return false;
+  }
 
   function handlePhotoDeleted() {
     setPhoto(undefined);
@@ -83,7 +111,7 @@ export default function ProductCreateForm() {
 
   return (
     <div>
-      <form id="create-product" onSubmit={handleSubmit(onSubmit)}>
+      <form id="edit-product" onSubmit={handleSubmit(onSubmit)}>
         <div>
           <Label htmlFor="name">Product name</Label>
           <Input type="text" id="name" {...register("name")} />
@@ -100,6 +128,8 @@ export default function ProductCreateForm() {
               alt="Product image"
               width={600}
               height={400}
+              className="h-auto w-auto"
+              priority
             />
           </div>
         ) : (
@@ -116,7 +146,7 @@ export default function ProductCreateForm() {
               variant={"default"}
               disabled={isPhotoUploading}
             >
-              Create product
+              Save changes
             </Button>
           </div>
 

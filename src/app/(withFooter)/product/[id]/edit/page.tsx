@@ -1,4 +1,4 @@
-import ProductEditForm from "@/components/ProductEditForm";
+import ProductEditForm from "@/components/Product/ProductEditForm";
 import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 

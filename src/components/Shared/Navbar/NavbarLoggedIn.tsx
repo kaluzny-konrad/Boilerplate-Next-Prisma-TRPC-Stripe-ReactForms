@@ -6,8 +6,8 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-import UserAvatar from "./UserAvatar";
+} from "@/components/ui/dropdown-menu";
+import UserAvatar from "@/components/Shared/UserAvatar";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 

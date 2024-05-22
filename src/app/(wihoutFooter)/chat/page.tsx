@@ -1,6 +1,6 @@
-import ChatAddForm from "@/components/ChatAddForm";
-import ChatNew from "@/components/ChatNew";
-import Chats from "@/components/Chats";
+import ChatAddForm from "@/components/Chat/ChatAddForm";
+import ChatNew from "@/components/Chat/ChatNew";
+import Chats from "@/components/Chat/Chats";
 
 export default function ChatPage() {
 

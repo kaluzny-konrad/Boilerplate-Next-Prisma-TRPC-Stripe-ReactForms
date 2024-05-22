@@ -1,13 +1,9 @@
 "use client";
 
 import WrapperMaxWidth from "./WrapperMaxWidth";
-import { usePathname } from "next/navigation";
 import Link from "next/link";
 
 export default function Footer() {
-  const pathsToMinimize = ["/verify-email", "/sign-up", "/sign-in"];
-  const pathname = usePathname();
-
   return (
     <footer className="flex-grow-0 bg-white">
       <WrapperMaxWidth>

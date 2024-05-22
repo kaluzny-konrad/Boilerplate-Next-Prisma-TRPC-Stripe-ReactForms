@@ -4,9 +4,8 @@ import { formatPrice, getPriceSum } from "@/lib/utils";
 import { trpc } from "@/server/client";
 import { toast } from "sonner";
 import OrderPaymentStatus from "./OrderPaymentStatus";
-import { Product, OrderStatus } from "@prisma/client";
+import { OrderStatus } from "@prisma/client";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import Image from "next/image";
 
 type Props = {

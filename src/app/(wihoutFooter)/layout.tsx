@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/Navbar";
-import WrapperMaxWidth from "@/components/WrapperMaxWidth";
+import Navbar from "@/components/Shared/Navbar/Navbar";
+import WrapperMaxWidth from "@/components/Shared/WrapperMaxWidth";
 import { Toaster } from "sonner";
 
 export const metadata: Metadata = {

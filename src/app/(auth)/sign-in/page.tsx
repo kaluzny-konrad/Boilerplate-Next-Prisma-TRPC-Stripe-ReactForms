@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ChevronLeftIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import AuthSignIn from "@/components/AuthSignIn";
+import AuthSignIn from "@/components/Auth/AuthSignIn";
 import { buttonVariants } from "@/components/ui/button";
 
 type Props = {};

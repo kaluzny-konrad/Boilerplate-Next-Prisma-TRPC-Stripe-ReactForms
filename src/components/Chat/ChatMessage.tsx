@@ -1,6 +1,6 @@
 import { ExtendedMessage } from "@/types/message";
 import React, { forwardRef } from "react";
-import { Icons } from "./Icons";
+import { Icons } from "@/components/Shared/Icons";
 import ReactMarkdown from "react-markdown";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";

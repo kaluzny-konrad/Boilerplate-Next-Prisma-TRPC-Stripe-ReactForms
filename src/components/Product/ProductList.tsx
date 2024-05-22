@@ -1,7 +1,7 @@
 "use client";
 
 import { trpc } from "@/server/client";
-import { Skeleton } from "./ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 import ProductRow from "./ProductRow";
 
 export default function ProductList() {

@@ -2,9 +2,9 @@
 
 import { trpc } from "@/server/client";
 import Link from "next/link";
-import { buttonVariants } from "./ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Skeleton } from "./ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type Props = {};
 
