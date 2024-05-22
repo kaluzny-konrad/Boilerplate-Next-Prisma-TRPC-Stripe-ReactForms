@@ -11,14 +11,6 @@ export default function Footer() {
   return (
     <footer className="flex-grow-0 bg-white">
       <WrapperMaxWidth>
-        <div className="">
-          {pathsToMinimize.includes(pathname) ? null : (
-            <div className="pt-16 pb-8">
-              <div className="flex justify-center">Your logo here</div>
-            </div>
-          )}
-        </div>
-
         <div className="py-10 md:flex md:items-center md:justify-between">
           <div className="text-center md:text-left">
             <p className="text-sm text-muted-foreground">

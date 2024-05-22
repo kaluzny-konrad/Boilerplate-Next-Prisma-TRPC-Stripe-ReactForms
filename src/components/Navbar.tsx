@@ -12,7 +12,9 @@ export default function Navbar() {
             <Link href="/" className="flex items-center">
               <p className="font-extralight text-3xl">LOGO</p>
             </Link>
-            <NavbarLinks />
+            <div className="hidden lg:block">
+              <NavbarLinks />
+            </div>
             <NavbarUserOptions />
           </div>
         </WrapperMaxWidth>

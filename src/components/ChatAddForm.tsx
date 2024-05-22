@@ -53,10 +53,6 @@ export default function ChatAddForm() {
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-4"
     >
-      <div>
-        <Label htmlFor="name">Name</Label>
-        <Input type="text" id="name" {...register("name")} />
-      </div>
       <Button type="submit">Create chat</Button>
     </form>
   );

@@ -8,6 +8,7 @@ import { Loader2Icon, MessageSquareIcon } from "lucide-react";
 import { useIntersection } from "@mantine/hooks";
 import { Skeleton } from "./ui/skeleton";
 import ChatMessage from "./ChatMessage";
+import { cn } from "@/lib/utils";
 
 type Props = {
   chatId: string;
@@ -29,6 +30,8 @@ export default function ChatMessages({ chatId }: Props) {
     );
 
   const messages = data?.pages.flatMap((page) => page.messages) ?? [];
+
+  console.log(messages);
 
   const loadingMeessage = {
     createdAt: new Date(),
@@ -80,7 +83,12 @@ export default function ChatMessages({ chatId }: Props) {
   }
 
   return (
-    <div className="mx-4">
+    <div
+      className={cn(
+        "flex max-h-[calc(100vh-3.5rem-7rem)] border-zinc-200 flex-1 flex-col-reverse gap-4 p-3 overflow-y-auto",
+        "scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch"
+      )}
+    >
       {combinedMessages.map((message, i) => {
         const isNextMessageSamePerson =
           combinedMessages[i - 1]?.isUserMessage === message.isUserMessage;

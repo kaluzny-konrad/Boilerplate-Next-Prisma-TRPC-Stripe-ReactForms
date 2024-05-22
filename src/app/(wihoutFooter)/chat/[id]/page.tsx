@@ -1,4 +1,5 @@
-import Chat from "@/components/Chat";
+import ChatAddForm from "@/components/ChatAddForm";
+import ChatWrapper from "@/components/ChatWrapper";
 import Chats from "@/components/Chats";
 import { cn } from "@/lib/utils";
 
@@ -12,17 +13,16 @@ export default async function ChatIdPage({ params }: Props) {
   const { id } = params;
 
   return (
-    <div className="flex">
+    <div className="flex max-h-[80vh]">
       {/* left side */}
-      <div className="hidden lg:flex lg:w-1/4">
-        <div className="flex-1">
+      <div className="hidden lg:flex lg:w-1/4 lg:flex-col gap-4 p-4">
+          <ChatAddForm />
           <Chats />
-        </div>
       </div>
 
       {/* right side */}
       <div className="flex-1">
-        <Chat id={id} />
+        <ChatWrapper id={id} />
       </div>
     </div>
   );
