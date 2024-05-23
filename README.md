@@ -1,6 +1,6 @@
 # ToDo:
 
-1. [ ] Add OpenAI API
+1. [X] Add OpenAI API
 2. [X] Add Seeding db
 
 
