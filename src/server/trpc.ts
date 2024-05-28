@@ -1,7 +1,7 @@
 import { TRPCError, initTRPC } from "@trpc/server";
-import { getAuthSession } from "@/lib/auth";
 import { db } from "@/db";
 import superjson from 'superjson';
+import { auth, currentUser } from "@clerk/nextjs/server";
 
 const t = initTRPC.create(
   {
@@ -12,8 +12,7 @@ const t = initTRPC.create(
 const middleware = t.middleware;
 
 const isAuthorized = middleware(async (opts) => {
-  const session = await getAuthSession();
-  const user = session?.user;
+  const user = await currentUser()
 
   if (!user || !user.id) {
     throw new TRPCError({ code: "UNAUTHORIZED" });

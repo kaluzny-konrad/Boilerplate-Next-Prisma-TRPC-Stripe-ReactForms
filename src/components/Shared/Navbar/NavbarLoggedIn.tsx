@@ -8,8 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import UserAvatar from "@/components/Shared/UserAvatar";
-import { signOut } from "next-auth/react";
-import Link from "next/link";
+import { SignOutButton } from "@clerk/nextjs";
 
 type Props = {
   user: {
@@ -43,14 +42,8 @@ export default function NavbarLoggedIn({ user }: Props) {
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem
-          onSelect={(event: any) => {
-            event.preventDefault();
-            signOut({ callbackUrl: `${window.location.origin}` });
-          }}
-          className="cursor-pointer"
-        >
-          Sign out
+        <DropdownMenuItem>
+          <SignOutButton />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

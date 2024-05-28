@@ -13,12 +13,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="h-full">
-      <body
-        className={cn("font-sans antialiased bg-gray-100", inter.className)}
-      >
-        <WrapperProviders>{children}</WrapperProviders>
-      </body>
-    </html>
+
+      <html lang="en" className="h-full">
+        <body
+          className={cn("font-sans antialiased bg-gray-100", inter.className)}
+        >
+          <WrapperProviders>{children}</WrapperProviders>
+        </body>
+      </html>
   );
 }
