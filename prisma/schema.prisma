@@ -22,17 +22,10 @@ model User {
   username      String?   @unique
   image         String?
 
-  role Role? @default(USER)
-
   Order Order[]
 
   Chat    Chat[]
   Message Message[]
-}
-
-enum Role {
-  USER
-  ADMIN
 }
 
 model Order {
