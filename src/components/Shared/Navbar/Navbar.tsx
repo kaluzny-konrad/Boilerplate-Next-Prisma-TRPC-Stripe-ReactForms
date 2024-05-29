@@ -15,7 +15,9 @@ export default function Navbar() {
             <div className="hidden lg:block">
               <NavbarLinks />
             </div>
-            <NavbarUserOptions />
+            <div className="flex items-center">
+              <NavbarUserOptions />
+            </div>
           </div>
         </WrapperMaxWidth>
       </header>
