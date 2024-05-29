@@ -54,8 +54,10 @@ export async function POST(request: Request) {
         (e) => e.id === evt.data.primary_email_address_id
       )?.email_address ?? evt.data.email_addresses[0].email_address;
 
-    let name = `${evt.data.first_name} ${evt.data.last_name}`;
-    if (!name.trim()) {
+    let name = "";
+    if (evt.data.first_name) name += evt.data.first_name;
+    if (evt.data.last_name) name += ` ${evt.data.last_name}`;
+    if (name.trim() === "") {
       name = email.split("@")[0];
     }
 
@@ -64,7 +66,7 @@ export async function POST(request: Request) {
       username = email.split("@")[0];
     }
 
-    const user = await db.user.create({
+    await db.user.create({
       data: {
         id: evt.data.id,
         email: email,
@@ -75,13 +77,25 @@ export async function POST(request: Request) {
       },
     });
   } else if (evt.type === "user.updated") {
+    const existedUser = await db.user.findUnique({
+      where: {
+        id: evt.data.id,
+      },
+    });
+
+    if (!existedUser) {
+      return new Response("User not found", { status: 404 });
+    }
+
     const email =
       evt.data.email_addresses.find(
         (e) => e.id === evt.data.primary_email_address_id
       )?.email_address ?? evt.data.email_addresses[0].email_address;
 
-    let name = `${evt.data.first_name} ${evt.data.last_name}`;
-    if (!name.trim()) {
+    let name = "";
+    if (evt.data.first_name) name += evt.data.first_name;
+    if (evt.data.last_name) name += ` ${evt.data.last_name}`;
+    if (name.trim() === "") {
       name = email.split("@")[0];
     }
 
@@ -103,9 +117,19 @@ export async function POST(request: Request) {
       },
     });
   } else if (evt.type === "user.deleted") {
-    const user = await db.user.delete({
+    const existedUser = await db.user.findUnique({
       where: {
         id: evt.data.id,
+      },
+    });
+
+    if (!existedUser) {
+      return new Response("User not found", { status: 404 });
+    }
+
+    await db.user.delete({
+      where: {
+        id: existedUser.id,
       },
     });
   }
