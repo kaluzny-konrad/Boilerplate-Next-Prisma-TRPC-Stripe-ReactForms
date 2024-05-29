@@ -1,5 +1,5 @@
 import OrderInfo from "@/components/Product/OrderInfo";
-import { getAuthSession } from "@/lib/auth";
+import { currentUser } from "@clerk/nextjs/server";
 
 type Props = {
   params: {
@@ -9,12 +9,12 @@ type Props = {
 
 export default async function OrderPage({ params }: Props) {
   const { id } = params;
-  const session = await getAuthSession();
+  const user = await currentUser();
 
   return (
     <div>
       <h1>Order</h1>
-      <OrderInfo orderId={id} userEmail={session?.user?.email} />
+      <OrderInfo orderId={id} userEmail={user?.emailAddresses[0].emailAddress} />
     </div>
   );
 }

@@ -1,18 +1,11 @@
-import { getToken } from "next-auth/jwt";
-import { NextRequest, NextResponse } from "next/server";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-export async function middleware(req: NextRequest) {
-  const token = await getToken({ req });
+const isProtectedRoute = createRouteMatcher(["/chat(.*)", "/product/create(.*)"]);
 
-  if (!token) {
-    return NextResponse.redirect(new URL("/sign-in", req.nextUrl));
-  }
-
-  if (req.nextUrl.pathname.startsWith("/admin") && token.role !== "ADMIN") {
-    return NextResponse.redirect(new URL("/sign-in", req.nextUrl));
-  }
-}
+export default clerkMiddleware((auth, req) => {
+  if (isProtectedRoute(req)) auth().protect();
+});
 
 export const config = {
-  matcher: ["/order/:path*", "/product/:path*", "/chat/:path*"],
+  matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"],
 };

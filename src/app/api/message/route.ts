@@ -6,16 +6,16 @@ import { OpenAIEmbeddings } from "@langchain/openai";
 import { PineconeStore } from "@langchain/pinecone";
 import { NextRequest } from "next/server";
 import { OpenAIStream, StreamingTextResponse } from "ai";
-import { getAuthSession } from "@/lib/auth";
+import { currentUser } from "@clerk/nextjs/server";
 
 export const POST = async (req: NextRequest) => {
   // endpoint for asking a question to chat
   const body = await req.json();
 
-  const session = await getAuthSession();
-  if (!session?.user) return new Response("Unauthorized", { status: 401 });
+  const user = await currentUser();
+  if (!user) return new Response("Unauthorized", { status: 401 });
   
-  const { id: userId } = session.user;
+  const { id: userId } = user;
 
   const { chatId, message } = SendMessageValidator.parse(body);
 

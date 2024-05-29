@@ -14,37 +14,6 @@ datasource db {
   relationMode = "prisma"
 }
 
-model Account {
-  id                String  @id @default(cuid())
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
-  @@index([userId])
-}
-
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  expires      DateTime
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId])
-}
-
 model User {
   id            String    @id @default(cuid())
   name          String?
@@ -53,10 +22,7 @@ model User {
   username      String?   @unique
   image         String?
 
-  role Role?
-
-  Accounts Account[]
-  Sessions Session[]
+  role Role? @default(USER)
 
   Order Order[]
 

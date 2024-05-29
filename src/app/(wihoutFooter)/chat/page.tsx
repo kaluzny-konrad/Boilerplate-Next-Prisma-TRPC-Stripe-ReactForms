@@ -3,9 +3,6 @@ import ChatNew from "@/components/Chat/ChatNew";
 import Chats from "@/components/Chat/Chats";
 
 export default function ChatPage() {
-
-  
-
   return (
     <div className="flex max-h-[80vh]">
       {/* left side */}
