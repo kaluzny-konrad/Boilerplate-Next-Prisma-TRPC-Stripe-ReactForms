@@ -58,8 +58,6 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@snaplet/copycat": "^5.0.0",
-    "@snaplet/seed": "0.97.12",
     "@types/node": "^20.12.11",
     "@types/react": "^18.3.2",
     "@types/react-dom": "^18.3.0",
@@ -73,7 +71,6 @@
   "trustedDependencies": [
     "@prisma/client",
     "@prisma/engines",
-    "@snaplet/seed",
     "prisma"
   ]
 }
