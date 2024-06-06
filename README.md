@@ -53,3 +53,15 @@ Remember: to add new created webhook secret (not from local tunnel)
 
 ## Seed Database
 `npx tsx prisma/seed/seed.ts`
+
+## Update deps
+
+```
+bun add @clerk/nextjs@latest @hookform/resolvers@latest @langchain/openai@latest @langchain/pinecone@latest @mantine/hooks@latest @next-auth/prisma-adapter@latest @pinecone-database/pinecone@latest @prisma/client@latest @radix-ui/react-avatar@latest @radix-ui/react-dropdown-menu@latest @radix-ui/react-label@latest @radix-ui/react-slot@latest @trpc/client@latest @trpc/react-query@latest @trpc/server@latest @uploadthing/react@latest ai@latest axios@latest class-variance-authority@latest clsx@latest date-fns@latest langchain@latest lucide-react@latest nanoid@latest next@latest next-auth@latest next-themes@latest openai@latest react@latest react-dom@latest react-hook-form@latest react-markdown@latest react-textarea-autosize@latest recoil@latest sonner@latest stripe@latest superjson@latest svix@latest tailwind-merge@latest tailwindcss-animate@latest uploadthing@latest zod@latest
+```
+```
+bun add --dev @types/node@latest @types/react@latest @types/react-dom@latest eslint@latest eslint-config-next@latest prisma@latest @prisma/engines@latest tailwindcss@latest typescript@latest
+```
+
+not updated:
+@tanstack/react-query - https://github.com/TanStack/query/issues/6186
