@@ -10,7 +10,11 @@
     "lint": "next lint"
   },
   "prisma": {
-    "seed": "npx tsx prisma/seed/seed.ts"
+    "seed": "npx tsx prisma/seed.ts",
+    "reset": "npx tsx prisma/reset-db.ts"
+  },
+  "@snaplet/seed": {
+    "config": "prisma/seed.config.ts"
   },
   "dependencies": {
     "@clerk/nextjs": "^5.1.4",
@@ -60,6 +64,8 @@
   "devDependencies": {
     "@playwright/test": "^1.44.1",
     "@prisma/engines": "^5.15.0",
+    "@snaplet/copycat": "^5.0.0",
+    "@snaplet/seed": "0.97.12",
     "@types/node": "^20.14.2",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
@@ -74,6 +80,8 @@
     "@clerk/shared",
     "@prisma/client",
     "@prisma/engines",
+    "@snaplet/seed",
+    "esbuild",
     "prisma"
   ]
 }
