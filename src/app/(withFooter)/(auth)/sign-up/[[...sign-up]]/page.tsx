@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { ChevronLeftIcon } from "lucide-react";
+
 import { cn } from "@/lib/utils";
+
 import AuthSignUp from "@/components/Auth/AuthSignUp";
 import { buttonVariants } from "@/components/ui/button";
 

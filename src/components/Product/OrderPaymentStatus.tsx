@@ -1,8 +1,9 @@
 "use client";
 
-import { trpc } from "@/server/client";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+
+import { trpc } from "@/server/client";
 
 type Props = {
   orderEmail: string;

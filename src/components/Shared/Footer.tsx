@@ -1,7 +1,8 @@
 "use client";
 
-import WrapperMaxWidth from "./WrapperMaxWidth";
 import Link from "next/link";
+
+import WrapperMaxWidth from "./WrapperMaxWidth";
 
 export default function Footer() {
   return (

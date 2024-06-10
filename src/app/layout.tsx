@@ -1,7 +1,9 @@
 import { Inter } from "next/font/google";
-import "./globals.css";
-import WrapperProviders from "@/components/Shared/WrapperProviders";
+
 import { cn, constructMetadata } from "@/lib/utils";
+import "./globals.css";
+
+import WrapperProviders from "@/components/Shared/WrapperProviders";
 
 const inter = Inter({ subsets: ["latin"] });
 

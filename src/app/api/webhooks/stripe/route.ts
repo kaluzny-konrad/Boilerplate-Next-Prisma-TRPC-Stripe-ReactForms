@@ -1,8 +1,9 @@
+import { headers } from "next/headers";
+import { OrderStatus } from "@prisma/client";
+
 import { db } from "@/db";
 import { stripe } from "@/lib/stripe";
-import { headers } from "next/headers";
 import type Stripe from "stripe";
-import { OrderStatus } from "@prisma/client";
 
 export async function POST(request: Request) {
   const body = await request.text();

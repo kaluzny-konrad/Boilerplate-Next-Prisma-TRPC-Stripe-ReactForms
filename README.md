@@ -54,14 +54,24 @@ Remember: to add new created webhook secret (not from local tunnel)
 ## Seed Database
 `npx tsx prisma/seed/seed.ts`
 
-## Update deps
+# Updates bun
+
+## Dont update:
+
+## Wait with updates:
+
+- @uploadthing/react": "^6.6.0" -> wait for fix first bugs
+- uploadthing@latest -> wait for fix first bugs
+- "eslint": "^8.57.0", -> wait for fix bugs from version 9
+
+## Deps
 
 ```
-bun add @clerk/nextjs@latest @hookform/resolvers@latest @langchain/openai@latest @langchain/pinecone@latest @mantine/hooks@latest @next-auth/prisma-adapter@latest @pinecone-database/pinecone@latest @prisma/client@latest @radix-ui/react-avatar@latest @radix-ui/react-dropdown-menu@latest @radix-ui/react-label@latest @radix-ui/react-slot@latest @trpc/client@latest @trpc/react-query@latest @trpc/server@latest @uploadthing/react@latest ai@latest axios@latest class-variance-authority@latest clsx@latest date-fns@latest langchain@latest lucide-react@latest nanoid@latest next@latest next-auth@latest next-themes@latest openai@latest react@latest react-dom@latest react-hook-form@latest react-markdown@latest react-textarea-autosize@latest recoil@latest sonner@latest stripe@latest superjson@latest svix@latest tailwind-merge@latest tailwindcss-animate@latest uploadthing@latest zod@latest
-```
-```
-bun add --dev @types/node@latest @types/react@latest @types/react-dom@latest eslint@latest eslint-config-next@latest prisma@latest @prisma/engines@latest tailwindcss@latest typescript@latest
+bun add @clerk/nextjs@latest @hookform/resolvers@latest @langchain/openai@latest @langchain/pinecone@latest @mantine/hooks@latest @next-auth/prisma-adapter@latest @pinecone-database/pinecone@latest @prisma/client@latest @radix-ui/react-avatar@latest @radix-ui/react-dropdown-menu@latest @radix-ui/react-label@latest @radix-ui/react-slot@latest @tanstack/react-query@latest @trpc/client@latest @trpc/react-query@latest @trpc/server@latest ai@latest axios@latest class-variance-authority@latest clsx@latest date-fns@latest langchain@latest lucide-react@latest nanoid@latest next@latest next-auth@latest next-themes@latest openai@latest react@latest react-dom@latest react-hook-form@latest react-markdown@latest react-textarea-autosize@latest recoil@latest sonner@latest stripe@latest superjson@latest svix@latest tailwind-merge@latest tailwindcss-animate@latest zod@latest
 ```
 
-not updated:
-@tanstack/react-query - https://github.com/TanStack/query/issues/6186
+## DevDeps
+
+```
+bun add --dev @playwright/test@latest @prisma/engines@latest @snaplet/copycat@latest @snaplet/seed@latest @types/node@latest @types/react@latest @types/react-dom@latest eslint-config-next@latest prisma@latest tailwindcss@latest typescript@latest vitest@latest
+```

@@ -1,7 +1,9 @@
+import Link from "next/link";
+
+import NavbarLinks from "./NavbarLinks";
+
 import WrapperMaxWidth from "@/components/Shared/WrapperMaxWidth";
 import NavbarUserOptions from "@/components/Shared/Navbar/NavbarUserOptions";
-import NavbarLinks from "./NavbarLinks";
-import Link from "next/link";
 
 export default function Navbar() {
   return (

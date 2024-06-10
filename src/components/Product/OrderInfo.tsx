@@ -1,12 +1,14 @@
 "use client";
 
-import { formatPrice, getPriceSum } from "@/lib/utils";
-import { trpc } from "@/server/client";
 import { toast } from "sonner";
-import OrderPaymentStatus from "./OrderPaymentStatus";
 import { OrderStatus } from "@prisma/client";
 import Link from "next/link";
 import Image from "next/image";
+
+import { formatPrice, getPriceSum } from "@/lib/utils";
+import { trpc } from "@/server/client";
+
+import OrderPaymentStatus from "@/components/Product/OrderPaymentStatus";
 
 type Props = {
   orderId: string;

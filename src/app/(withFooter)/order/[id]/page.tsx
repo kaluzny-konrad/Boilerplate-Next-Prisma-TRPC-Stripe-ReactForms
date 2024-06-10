@@ -1,6 +1,8 @@
-import OrderInfo from "@/components/Product/OrderInfo";
-import { getUserEmail } from "@/utils/session-emails";
 import { currentUser } from "@clerk/nextjs/server";
+
+import { getUserEmail } from "@/utils/session-emails";
+
+import OrderInfo from "@/components/Product/OrderInfo";
 
 type Props = {
   params: {

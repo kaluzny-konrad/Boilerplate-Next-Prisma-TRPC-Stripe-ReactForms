@@ -1,9 +1,10 @@
 "use client";
 
-import { formatPrice } from "@/lib/utils";
-import { trpc } from "@/server/client";
 import Image from "next/image";
 import { useEffect } from "react";
+
+import { formatPrice } from "@/lib/utils";
+import { trpc } from "@/server/client";
 
 type Props = {
   productId: string;

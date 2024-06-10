@@ -1,7 +1,9 @@
 import Link from "next/link";
 import React from "react";
-import { buttonVariants } from "@/components/ui/button";
+
 import { checkRole } from "@/utils/roles";
+
+import { buttonVariants } from "@/components/ui/button";
 
 type Props = {};
 

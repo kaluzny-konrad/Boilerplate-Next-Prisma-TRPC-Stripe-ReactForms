@@ -1,11 +1,13 @@
 "use client";
 
-import { trpc } from "@/server/client";
-import { ChatContextProvider } from "./ChatContextProvider";
-import ChatMessages from "./ChatMessages";
-import ChatInput from "./ChatInput";
 import { Loader2Icon } from "lucide-react";
 import { notFound } from "next/navigation";
+
+import { trpc } from "@/server/client";
+
+import { ChatContextProvider } from "@/components/Chat/ChatContextProvider";
+import ChatMessages from "@/components/Chat/ChatMessages";
+import ChatInput from "@/components/Chat/ChatInput";
 
 type Props = {
   id: string;

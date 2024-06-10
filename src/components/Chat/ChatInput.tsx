@@ -1,9 +1,11 @@
-import React from "react";
+import { useContext, useRef } from "react";
+import { SendIcon } from "lucide-react";
+
 import { cn } from "@/lib/utils";
+
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { SendIcon } from "lucide-react";
-import { ChatContext } from "./ChatContextProvider";
+import { ChatContext } from "@/components/Chat/ChatContextProvider";
 
 type Props = {
   isDisabled: boolean;
@@ -11,9 +13,9 @@ type Props = {
 
 export default function ChatInput({ isDisabled }: Props) {
   const { addMessage, handleInputChange, isLoading, message } =
-    React.useContext(ChatContext);
+    useContext(ChatContext);
 
-  const textareaRef = React.useRef<HTMLTextAreaElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   return (
     <div className="absolute bottom-0 left-0 w-full">
       <div className="flex flex-row max-w-3xl gap-3 mx-2 md:mx-4 md:last:mb-6 lg:mx-auto lg:max-w-2xl xl:">

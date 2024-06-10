@@ -1,6 +1,6 @@
 "use client";
 
-import ChatNewInput from "./ChatNewInput";
+import ChatNewInput from "@/components/Chat/ChatNewInput";
 
 export default function ChatNew() {
   return (

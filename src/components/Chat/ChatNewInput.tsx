@@ -1,5 +1,4 @@
-import React from 'react'
-import ChatAddForm from './ChatAddForm'
+import ChatAddForm from '@/components/Chat/ChatAddForm'
 
 type Props = {}
 

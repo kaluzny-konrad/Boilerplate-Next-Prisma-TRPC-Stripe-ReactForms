@@ -1,9 +1,11 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+
+import { cn } from "@/lib/utils";
+
 import ProductCheckoutButton from "@/components/Product/ProductCheckoutButton";
 import ProductInfo from "@/components/Product/ProductInfo";
 import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import Link from "next/link";
-import { notFound } from "next/navigation";
 
 type Props = {
   params: {

@@ -2,21 +2,23 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Image from "next/image";
+import { Photo } from "@prisma/client";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+
 import {
   ProductCreateRequest,
   ProductCreateValidator,
 } from "@/lib/validators/product";
 import { trpc } from "@/server/client";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { toast } from "sonner";
-import PhotoUploadZone from "./PhotoUploadZone";
+
+import PhotoUploadZone from "@/components/Photo/PhotoUploadZone";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import Image from "next/image";
-import DeletePhotoButton from "./PhotoDeleteButton";
-import { Photo } from "@prisma/client";
+import DeletePhotoButton from "@/components/Product/PhotoDeleteButton";
 
 export default function ProductCreateForm() {
   const router = useRouter();

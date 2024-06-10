@@ -1,8 +1,9 @@
 "use client";
 
 import { trpc } from "@/server/client";
+
 import { Skeleton } from "@/components/ui/skeleton";
-import ProductRow from "./ProductRow";
+import ProductRow from "@/components/Product/ProductRow";
 
 export default function ProductList() {
   const {

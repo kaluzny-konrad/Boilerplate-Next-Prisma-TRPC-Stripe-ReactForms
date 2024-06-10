@@ -30,6 +30,7 @@ const onPhotoUploadComplete = async ({
       data: {
         key: file.key,
         url: file.url,
+        fileName: file.name,
       },
     });
 

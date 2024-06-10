@@ -1,5 +1,4 @@
 import ProductList from '@/components/Product/ProductList'
-import React from 'react'
 
 type Props = {}
 

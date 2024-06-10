@@ -1,7 +1,9 @@
+import { Toaster } from "sonner";
+
 import type { Metadata } from "next";
+
 import Navbar from "@/components/Shared/Navbar/Navbar";
 import WrapperMaxWidth from "@/components/Shared/WrapperMaxWidth";
-import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Create Next App",

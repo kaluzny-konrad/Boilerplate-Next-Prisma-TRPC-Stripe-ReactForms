@@ -1,6 +1,8 @@
-import { buttonVariants } from "@/components/ui/button";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
+
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+
+import { buttonVariants } from "@/components/ui/button";
 
 export default async function NavbarUserOptions() {
   return (

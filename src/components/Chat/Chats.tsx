@@ -1,9 +1,11 @@
 "use client";
 
-import { trpc } from "@/server/client";
 import Link from "next/link";
-import { buttonVariants } from "@/components/ui/button";
+
+import { trpc } from "@/server/client";
 import { cn } from "@/lib/utils";
+
+import { buttonVariants } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 
 type Props = {};

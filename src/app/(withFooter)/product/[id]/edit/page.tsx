@@ -1,6 +1,7 @@
+import Link from "next/link";
+
 import ProductEditForm from "@/components/Product/ProductEditForm";
 import { buttonVariants } from "@/components/ui/button";
-import Link from "next/link";
 
 type Props = {
   params: {

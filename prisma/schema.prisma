@@ -65,6 +65,7 @@ model Product {
 model Photo {
   id  String @id @default(cuid())
   key String
+  fileName   String
   url String
 
   isMainPhoto Boolean @default(false)

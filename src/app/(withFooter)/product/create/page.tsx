@@ -1,6 +1,8 @@
-import CreateProductForm from "@/components/Product/ProductCreateForm";
 import { redirect } from "next/navigation";
+
 import { checkRole } from "@/utils/roles";
+
+import CreateProductForm from "@/components/Product/ProductCreateForm";
 
 export default function ProductCreatePage() {
   if (!checkRole("admin")) {

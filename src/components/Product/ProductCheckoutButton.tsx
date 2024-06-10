@@ -1,9 +1,11 @@
 "use client";
 
-import { trpc } from "@/server/client";
-import { Button } from "../ui/button";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+
+import { trpc } from "@/server/client";
+
+import { Button } from "@/components/ui/button";
 
 type Props = {
   productId: string;

@@ -3,7 +3,10 @@ import { Metadata } from "next";
 import { twMerge } from "tailwind-merge";
 import { formatDistanceToNowStrict } from "date-fns";
 import locale from "date-fns/locale/en-US";
-import { Prisma } from "@prisma/client";
+import { Photo, Prisma } from "@prisma/client";
+
+import { PHOTO_REPLACEMENT_URL } from "@/config/photo";
+import { DEFAULT_PRICE_CURRENCY } from "@/config/price";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -12,6 +15,12 @@ export function cn(...inputs: ClassValue[]) {
 export function absoluteUrl(path: string) {
   if (typeof window !== "undefined") return path;
   return `${process.env.NEXT_PUBLIC_SERVER_URL}${path}`;
+}
+
+export function getPublicPrice(price: Prisma.Decimal): string {
+  if (typeof price === "string") price = new Prisma.Decimal(price);
+  if (price.toNumber() === 0) return "Free";
+  return formatPrice(price, { currency: DEFAULT_PRICE_CURRENCY });
 }
 
 export function formatPrice(
@@ -151,4 +160,13 @@ export function constructMetadata({
       },
     }),
   };
+}
+
+export function getPublicPhotoUrl(photos: Photo[]): string {
+  if (photos.length === 0) return PHOTO_REPLACEMENT_URL;
+
+  let mainPhoto = photos.find((photo) => photo.isMainPhoto === true);
+  if (mainPhoto) return mainPhoto.url;
+
+  return photos[0].url;
 }

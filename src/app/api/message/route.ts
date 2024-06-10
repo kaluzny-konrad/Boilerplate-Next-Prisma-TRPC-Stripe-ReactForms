@@ -1,12 +1,13 @@
+import { PineconeStore } from "@langchain/pinecone";
+import { OpenAIEmbeddings } from "@langchain/openai";
+import { Pinecone } from "@pinecone-database/pinecone";
+import { currentUser } from "@clerk/nextjs/server";
+import { NextRequest } from "next/server";
+import { OpenAIStream, StreamingTextResponse } from "ai";
+
 import { db } from "@/db";
 import { openai } from "@/lib/openai";
 import { SendMessageValidator } from "@/lib/validators/message";
-import { Pinecone } from "@pinecone-database/pinecone";
-import { OpenAIEmbeddings } from "@langchain/openai";
-import { PineconeStore } from "@langchain/pinecone";
-import { NextRequest } from "next/server";
-import { OpenAIStream, StreamingTextResponse } from "ai";
-import { currentUser } from "@clerk/nextjs/server";
 
 export const POST = async (req: NextRequest) => {
   // endpoint for asking a question to chat
