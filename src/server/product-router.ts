@@ -52,7 +52,6 @@ export const productRouter = router({
     .mutation(async ({ input, ctx }) => {
       const { name } = input;
       const { user } = ctx;
-      
 
       const price = new Prisma.Decimal(input.price);
       const prismaPrice = parseFloat(input.price.replace(",", ".")) * 100;
@@ -169,7 +168,9 @@ export const productRouter = router({
         },
       });
 
-      await stripe.products.del(product.stripeProductId);
+      await stripe.products.update(product.stripeProductId, {
+        active: false,
+      });
 
       return product;
     }),

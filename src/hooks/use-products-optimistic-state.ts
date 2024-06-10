@@ -11,13 +11,15 @@ type ProductsState = {
   products: ProductItem[];
 
   onProductAdd: (product: Product & { Photos: Photo[] }) => void;
-  onProductDelete: (product: Product & { Photos: Photo[] }) => void;
+  onProductDelete: (productId: string) => void;
 
   onPhotoUploadBegin: (productId: string, photo: Photo) => void;
   onPhotoUploadComplete: (productId: string, photo: Photo) => void;
   onPhotoDelete: (productId: string, photo: Photo) => void;
 
   setOptimisticUpdateLoading: (productId: string, loading: boolean) => void;
+
+  initProductsState: (initialProducts: (Product & { Photos: Photo[] })[]) => void;
 };
 
 export const useProductsOptimisticState = create<ProductsState>()(
@@ -29,10 +31,10 @@ export const useProductsOptimisticState = create<ProductsState>()(
           products: [...state.products, { product }],
         }));
       },
-      onProductDelete: (product) => {
+      onProductDelete: (productId) => {
         set((state) => ({
           products: state.products.filter(
-            (productItem) => productItem.product.id !== product.id,
+            (productItem) => productItem.product.id !== productId,
           ),
         }));
       },
@@ -94,6 +96,14 @@ export const useProductsOptimisticState = create<ProductsState>()(
                 }
               : productItem,
           ),
+        }));
+      },
+      initProductsState: (initialProducts) => {
+        set(() => ({
+          products: initialProducts.map((product) => ({
+            product,
+            disabled: false,
+          })),
         }));
       },
     }),

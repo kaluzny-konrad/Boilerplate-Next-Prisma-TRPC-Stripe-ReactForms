@@ -27,8 +27,8 @@ export default function ProductAddButton() {
 
   const onButtonClick = () => {
     createProduct({
-      name: "New Product",
-      price: "0",
+      name: crypto.randomUUID(),
+      price: "10",
     });
   };
 
@@ -45,7 +45,7 @@ export default function ProductAddButton() {
       disabled={isLoading}
     >
       {isLoading ? (
-        <Loader2Icon className="h-6 w-6 lg:h-4 lg:w-4 animate-spin" />
+        <Loader2Icon className="h-6 w-6 animate-spin lg:h-4 lg:w-4" />
       ) : (
         <PlusIcon className="h-6 w-6 lg:h-4 lg:w-4" />
       )}

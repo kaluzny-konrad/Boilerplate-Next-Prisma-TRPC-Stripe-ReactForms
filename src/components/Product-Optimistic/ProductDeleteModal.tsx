@@ -3,6 +3,7 @@
 import { Photo, Product } from "@prisma/client";
 import { toast } from "sonner";
 import { Loader2Icon, TrashIcon } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 import { useProductsOptimisticState } from "@/hooks/use-products-optimistic-state";
 import { trpc } from "@/server/client";
@@ -18,34 +19,41 @@ import {
   DialogFooter,
   DialogClose,
 } from "@/components/ui/dialog";
-import { useRef } from "react";
 
 type Props = {
-  productId: string;
+  product: Product & { Photos: Photo[] };
   disabled?: boolean;
 };
 
-export default function ProductDeleteModal({ productId, disabled }: Props) {
-  const { onProductDelete } = useProductsOptimisticState();
+export default function ProductDeleteModal({ product, disabled }: Props) {
+  const { onProductDelete, onProductAdd } = useProductsOptimisticState();
+  const [initialProduct, setInitialProduct] = useState(product);
 
   const {
     mutate: deleteProduct,
     error,
     isLoading,
   } = trpc.product.deleteProduct.useMutation({
-    onSuccess: (product) => {
-      onProductDelete(product as Product & { Photos: Photo[] });
-    },
+    onSuccess: (product) => {},
     onError: (err) => {
-      console.error(err);
+      toast.error("Error deleting product, try again later");
+      onProductAdd(initialProduct);
     },
   });
 
   const onButtonClick = () => {
+    closeDialogButtonRef.current?.click();
+    onProductDelete(initialProduct.id);
     deleteProduct({
-      productId,
+      productId: initialProduct.id,
     });
   };
+
+  useEffect(() => {
+    if (product) {
+      setInitialProduct(product);
+    }
+  }, [product]);
 
   const closeDialogButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -71,9 +79,9 @@ export default function ProductDeleteModal({ productId, disabled }: Props) {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Delete review</DialogTitle>
+          <DialogTitle>Delete product</DialogTitle>
           <DialogDescription>
-            Are you sure you want to delete this review? This action cannot be
+            Are you sure you want to delete this product? This action cannot be
             undone.
           </DialogDescription>
         </DialogHeader>
@@ -83,7 +91,7 @@ export default function ProductDeleteModal({ productId, disabled }: Props) {
             disabled={disabled}
             variant={"destructive"}
           >
-            Delete review
+            Delete product
           </Button>
           <DialogClose asChild ref={closeDialogButtonRef}>
             <Button variant="secondary">Cancel</Button>
