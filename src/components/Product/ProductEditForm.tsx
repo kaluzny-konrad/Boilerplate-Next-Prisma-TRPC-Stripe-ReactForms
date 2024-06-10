@@ -18,7 +18,7 @@ import PhotoUploadZone from "@/components/Photo/PhotoUploadZone";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import DeletePhotoButton from "@/components/Product/PhotoDeleteButton";
+import DeletePhotoButton from "@/components/Photo/PhotoDeleteButton";
 
 type Props = {
   productId: string;
