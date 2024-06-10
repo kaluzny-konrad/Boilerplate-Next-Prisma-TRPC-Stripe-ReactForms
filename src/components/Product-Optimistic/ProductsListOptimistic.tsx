@@ -3,6 +3,7 @@
 import { useProductsOptimisticState } from "@/hooks/use-products-optimistic-state";
 import { useEffect, useState } from "react";
 import ProductAddButton from "./ProductAddButton";
+import ProductDeleteModal from "./ProductDeleteModal";
 
 export default function ProductsListOptimistic() {
   const { products } = useProductsOptimisticState();
@@ -24,7 +25,10 @@ export default function ProductsListOptimistic() {
                 className="m-2 flex gap-2 rounded-lg border p-4"
               >
                 {product.product.name}
-                
+                <ProductDeleteModal
+                  productId={product.product.id}
+                  disabled={product.disabled}
+                />
               </div>
             ))}
           </div>

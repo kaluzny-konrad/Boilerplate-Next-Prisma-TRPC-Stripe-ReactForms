@@ -16,12 +16,20 @@ export default function NavbarLinks({}: Props) {
         Products
       </Link>
       {isAdmin && (
-        <Link
-          href={"/product/create"}
-          className={buttonVariants({ variant: "ghost" })}
-        >
-          Create Product
-        </Link>
+        <>
+          <Link
+            href={"/product/create"}
+            className={buttonVariants({ variant: "ghost" })}
+          >
+            Create Product
+          </Link>
+          <Link
+            href={"/product-optimistic"}
+            className={buttonVariants({ variant: "ghost" })}
+          >
+            Products Create Optimistic
+          </Link>
+        </>
       )}
 
       <Link href={"/chat"} className={buttonVariants({ variant: "ghost" })}>

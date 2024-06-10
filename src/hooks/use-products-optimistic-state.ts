@@ -11,7 +11,6 @@ type ProductsState = {
   products: ProductItem[];
 
   onProductAdd: (product: Product & { Photos: Photo[] }) => void;
-  onProductUpdate: (product: Product & { Photos: Photo[] }) => void;
   onProductDelete: (product: Product & { Photos: Photo[] }) => void;
 
   onPhotoUploadBegin: (productId: string, photo: Photo) => void;
@@ -28,13 +27,6 @@ export const useProductsOptimisticState = create<ProductsState>()(
       onProductAdd: (product) => {
         set((state) => ({
           products: [...state.products, { product }],
-        }));
-      },
-      onProductUpdate: (product) => {
-        set((state) => ({
-          products: state.products.map((productItem) =>
-            productItem.product.id === product.id ? { product } : productItem,
-          ),
         }));
       },
       onProductDelete: (product) => {

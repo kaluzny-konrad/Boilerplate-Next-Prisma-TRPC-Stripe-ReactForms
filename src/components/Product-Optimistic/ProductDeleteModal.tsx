@@ -62,7 +62,11 @@ export default function ProductDeleteModal({ productId, disabled }: Props) {
           className="h-8 w-8 lg:h-6 lg:w-6"
           disabled={disabled}
         >
-          <TrashIcon className="h-6 w-6 lg:h-4 lg:w-4" />
+          {isLoading ? (
+            <Loader2Icon className="button-default-icon-size animate-spin" />
+          ) : (
+            <TrashIcon className="button-default-icon-size" />
+          )}
         </Button>
       </DialogTrigger>
       <DialogContent>
