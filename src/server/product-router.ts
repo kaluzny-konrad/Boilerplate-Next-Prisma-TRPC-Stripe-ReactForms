@@ -23,7 +23,7 @@ export const productRouter = router({
     .input(
       z.object({
         productId: z.string(),
-      })
+      }),
     )
     .query(async ({ input }) => {
       const { productId } = input;
@@ -106,7 +106,7 @@ export const productRouter = router({
       let existedPriceDefinition = previousStripePrices.data.find(
         (price) =>
           price.unit_amount === newPrismaPrice &&
-          price.currency === defaultCurrency.toLowerCase()
+          price.currency === defaultCurrency.toLowerCase(),
       );
 
       if (!existedPriceDefinition) {
@@ -122,7 +122,7 @@ export const productRouter = router({
         {
           name: name,
           default_price: existedPriceDefinition.id,
-        }
+        },
       );
 
       const updatedproduct = await db.product.update({
@@ -138,5 +138,38 @@ export const productRouter = router({
       });
 
       return updatedproduct;
+    }),
+
+  deleteProduct: privateProcedure
+    .input(
+      z.object({
+        productId: z.string(),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      const { productId } = input;
+
+      const product = await db.product.findUnique({
+        where: {
+          id: productId,
+        },
+      });
+
+      if (!product) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "product not found",
+        });
+      }
+
+      await db.product.delete({
+        where: {
+          id: productId,
+        },
+      });
+
+      await stripe.products.del(product.stripeProductId);
+
+      return product;
     }),
 });
