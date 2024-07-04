@@ -14,6 +14,14 @@ import {
 } from "@/lib/validators/product";
 import { trpc } from "@/server/client";
 
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import PhotoUploadZone from "@/components/Photo/PhotoUploadZone";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -25,12 +33,7 @@ export default function ProductCreateForm() {
   const [photo, setPhoto] = useState<Photo | undefined>(undefined);
   const [isPhotoUploading, setIsPhotoUploading] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-  } = useForm<ProductCreateRequest>({
+  const form = useForm<ProductCreateRequest>({
     resolver: zodResolver(ProductCreateValidator),
     defaultValues: {
       name: "",
@@ -39,12 +42,12 @@ export default function ProductCreateForm() {
   });
 
   useEffect(() => {
-    if (Object.keys(errors).length) {
-      for (const [key, value] of Object.entries(errors)) {
+    if (Object.keys(form.formState.errors).length) {
+      for (const [key, value] of Object.entries(form.formState.errors)) {
         toast.error(`Something went wrong: ${value.message}`);
       }
     }
-  }, [errors]);
+  }, [form.formState.errors]);
 
   async function onSubmit(data: ProductCreateRequest) {
     createProduct(data);
@@ -84,24 +87,60 @@ export default function ProductCreateForm() {
   }
 
   return (
-    <div>
-      <form id="create-product" onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <Label htmlFor="name">Product name</Label>
-          <Input type="text" id="name" {...register("name")} />
-        </div>
-        <div>
-          <Label htmlFor="price">Price</Label>
-          <Input type="number" step="0.01" id="price" {...register("price")} />
-        </div>
+    <Form {...form}>
+      <form
+        id="create-product"
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-4"
+      >
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Product name</FormLabel>
+              <FormControl>
+                <Input type="text" placeholder="Product name" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="price"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Price</FormLabel>
+              <FormControl>
+                <Input
+                  type="number"
+                  step="0.01"
+                  placeholder="Product price"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         {photo?.url ? (
-          <div>
+          <div className="relative">
+            <div className="absolute top-0">
+              <DeletePhotoButton
+                Photo={photo}
+                onPhotoDeleted={handlePhotoDeleted}
+              />
+            </div>
             <Image
               src={photo.url}
               alt="Product image"
               width={600}
               height={400}
+              className="aspect-video object-cover"
+              priority
             />
           </div>
         ) : (
@@ -111,27 +150,12 @@ export default function ProductCreateForm() {
           />
         )}
 
-        <div className="flex gap-2 m-2">
-          <div>
-            <Button
-              type="submit"
-              variant={"default"}
-              disabled={isPhotoUploading}
-            >
-              Create product
-            </Button>
-          </div>
-
-          {photo?.url && (
-            <div>
-              <DeletePhotoButton
-                Photo={photo}
-                onPhotoDeleted={handlePhotoDeleted}
-              />
-            </div>
-          )}
+        <div className="flex justify-end gap-2">
+          <Button type="submit" variant={"default"} disabled={isPhotoUploading}>
+            Create product
+          </Button>
         </div>
       </form>
-    </div>
+    </Form>
   );
 }

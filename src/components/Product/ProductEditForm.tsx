@@ -14,6 +14,14 @@ import {
 } from "@/lib/validators/product";
 import { trpc } from "@/server/client";
 
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import PhotoUploadZone from "@/components/Photo/PhotoUploadZone";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -35,12 +43,7 @@ export default function ProductEditForm({ productId }: Props) {
     error: databaseError,
   } = trpc.product.getProduct.useQuery({ productId });
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-  } = useForm<ProductEditRequest>({
+  const form = useForm<ProductEditRequest>({
     resolver: zodResolver(ProductEditValidator),
     defaultValues: {
       name: "",
@@ -49,12 +52,12 @@ export default function ProductEditForm({ productId }: Props) {
   });
 
   useEffect(() => {
-    if (Object.keys(errors).length) {
-      for (const [key, value] of Object.entries(errors)) {
+    if (Object.keys(form.formState.errors).length) {
+      for (const [key, value] of Object.entries(form.formState.errors)) {
         toast.error(`Something went wrong: ${value.message}`);
       }
     }
-  }, [errors]);
+  }, [form.formState.errors]);
 
   async function onSubmit(data: ProductEditRequest) {
     editProduct(data);
@@ -82,12 +85,12 @@ export default function ProductEditForm({ productId }: Props) {
 
   useEffect(() => {
     if (productPreviousData) {
-      setValue("name", productPreviousData.name);
-      setValue("price", productPreviousData.price.toString());
-      setValue("productId", productPreviousData.id);
+      form.setValue("name", productPreviousData.name);
+      form.setValue("price", productPreviousData.price.toString());
+      form.setValue("productId", productPreviousData.id);
       setPhoto(productPreviousData.Photos[0] ?? undefined);
     }
-  }, [productPreviousData, setValue, setPhoto]);
+  }, [productPreviousData, form.setValue, setPhoto]);
 
   if (databaseLoading) {
     return false;
@@ -112,25 +115,59 @@ export default function ProductEditForm({ productId }: Props) {
   }
 
   return (
-    <div>
-      <form id="edit-product" onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <Label htmlFor="name">Product name</Label>
-          <Input type="text" id="name" {...register("name")} />
-        </div>
-        <div>
-          <Label htmlFor="price">Price</Label>
-          <Input type="number" step="0.01" id="price" {...register("price")} />
-        </div>
+    <Form {...form}>
+      <form
+        id="edit-product"
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-4"
+      >
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Product name</FormLabel>
+              <FormControl>
+                <Input type="text" placeholder="Product name" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="price"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Price</FormLabel>
+              <FormControl>
+                <Input
+                  type="number"
+                  step="0.01"
+                  placeholder="Product price"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         {photo?.url ? (
-          <div>
+          <div className="relative">
+            <div className="absolute top-0">
+              <DeletePhotoButton
+                Photo={photo}
+                onPhotoDeleted={handlePhotoDeleted}
+              />
+            </div>
             <Image
               src={photo.url}
               alt="Product image"
               width={600}
               height={400}
-              className="h-auto w-auto"
+              className="aspect-video object-cover"
               priority
             />
           </div>
@@ -141,27 +178,16 @@ export default function ProductEditForm({ productId }: Props) {
           />
         )}
 
-        <div className="flex gap-2 m-2">
-          <div>
-            <Button
-              type="submit"
-              variant={"default"}
-              disabled={isPhotoUploading}
-            >
-              Save changes
-            </Button>
-          </div>
-
-          {photo?.url && (
-            <div>
-              <DeletePhotoButton
-                Photo={photo}
-                onPhotoDeleted={handlePhotoDeleted}
-              />
-            </div>
-          )}
+        <div className="flex justify-end gap-2">
+          <Button
+            type="submit"
+            data-test="product-edit-save-button"
+            disabled={isPhotoUploading}
+          >
+            Save changes
+          </Button>
         </div>
       </form>
-    </div>
+    </Form>
   );
 }
